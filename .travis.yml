@@ -1,0 +1,23 @@
+language: ruby
+rvm:
+  - 2.4.2
+script:
+  - bundle exec jekyll build
+  - bundle exec htmlproofer ./www
+after_success: |
+  if [ -n "$GITHUB_API" ]; then
+    cd "$TRAVIS_BUILD_DIR/www"
+    git init
+    git checkout --orphan gh-pages
+    git add .
+    git status
+    git -c user.name='travis' -c user.email='auto@travis-ci.org' commit -m stage
+    # Make sure to make the output quiet, or else the API token will leak!
+    # This works because the API key can replace your password.
+    git push -f -q https://burden:$GITHUB_API@github.com/burden/burdendotcc gh-pages &2>/dev/null
+    cd "$TRAVIS_BUILD_DIR"
+  fi
+env:
+  global:
+    - NOKOGIRI_USE_SYSTEM_LIBRARIES=true # speeds up installation of html-proofer
+sudo: false # route your build to the container-based infrastructure for a faster build
