@@ -6,7 +6,11 @@ namespace :site do
   end
 
   task :test do
-    HTMLProofer.check_directory("./www").run
+    HTMLProofer.check_directory("./www", {
+      :typhoeus => {
+        :ssl_verifypeer => false,
+        :ssl_verifyhost => 0}
+      }).run
   end
 
 end

@@ -6,6 +6,11 @@ categories: site-updates
 ---
 Up until I finish these "Getting settled in" posts, the site is using a boring old default minima theme. It's actually really well rounded, but me being me, I can't live with default.
 
+As usual, we'll start the post with a new branch.
+```
+$ git checkout -b assets
+```
+
 ## Dependencies
 
 For part 1 of _this_ part of _this_ "Let's start from scratch" series, we're finally getting around to installing asset dependencies with the help of [Bower](https://bower.io).
@@ -84,8 +89,6 @@ assets:
 
 ```
 
-Finally we can run `bower install` which creates `src/_assets/vendor` then installs bulma and jquery. Handy!
-
 Wrapping everything up, we need to make a quick addition to
 `.travis.yml`, telling it to do the bower thing before building.
 
@@ -95,4 +98,4 @@ before_script:
   - bower install
 ```
 
-At this stage, we're not doing anything with the dependencies yet. Next time around, we'll do something about that. 
+At this stage, we're not doing anything with the dependencies yet. Next time around, we'll do something about that.
