@@ -44,6 +44,12 @@ plugins:
   - jekyll-assets
   - kramdown
   - uglifier
+  - jekyll-paginate
+  - jekyll-redirect-from
+
+paginate: 5
+paginate_path: /hullabaloo/:num/
+permalink: /hullabaloo/:categories/:title
 
 include:
   - CNAME

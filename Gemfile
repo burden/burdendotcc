@@ -8,6 +8,8 @@ group :jekyll_plugins do
   gem "jekyll-assets"
   gem "kramdown"
   gem "uglifier", "~> 3.2"
+  gem "jekyll-paginate"
+  gem "jekyll-redirect-from"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
