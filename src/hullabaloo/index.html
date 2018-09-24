@@ -1,0 +1,29 @@
+---
+layout: page
+---
+{%- if site.posts.size > 0 -%}
+    {%- for post in paginator.posts -%}
+    <div class="box">
+      <p class="title is-5"><a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a></p>
+      <p class="subtitle is-7">{{ post.date | date: "%b %-d, %Y" }}</p>
+      <div class="content">
+      {{ post.excerpt }}
+      </div>
+      <a href="{{ post.url }}" class="button">Read more</a>
+    </div>
+    {%- endfor -%}
+  <p>subscribe <a href="{{ "/feed.xml" | relative_url }}">via RSS</a></p>
+{%- endif -%}
+
+{% if paginator.total_pages > 1 %}
+<nav class="pagination is-right" role="navigation" aria-label="pagination">
+  <a {% if paginator.previous_page %}href="{{ paginator.previous_page_path }}"{% endif %} class="pagination-previous"{% unless paginator.previous_page %} disabled{% endunless %}>Previous</a>
+  <a {% if paginator.next_page %}href="{{ paginator.next_page_path }}"{% endif %} class="pagination-next"{% unless paginator.next_page %} disabled{% endunless %}>Next</a>
+  <ul class="pagination-list">
+  {% for page in (1..paginator.total_pages)%}
+    {% capture page-url %}{% if page == 1 %}{{ site.paginate_path | replace: ':num/', '' }}{% else %}{{ site.paginate_path | replace: ':num', page }}{% endif %}{% endcapture %}
+    <li><a href="{{ page-url | prepend: site.baseurl | prepend: site.url }}" class="pagination-link{% if page == paginator.page %} is-current{% endif %}">{{ page }}</a></li>
+  {% endfor %}
+  </ul>
+</nav>
+{% endif %}
