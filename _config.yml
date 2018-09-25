@@ -18,8 +18,10 @@ email: your-email@example.com
 description: Sometimes weird; occasionally unfiltered-- almost certainly not untrue.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: jekyllrb
-github_username:  jekyll
+keybase_username: burden
+twitter_username: cheapexcitement
+github_username:  burden
+github_repo: burden/burdendotcc
 
 # Build settings
 source: src
