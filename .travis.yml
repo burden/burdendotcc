@@ -10,7 +10,7 @@ before_script:
   - bower install
 script:
   - bundle exec jekyll build
-  - bundle exec htmlproofer ./www --assume_extension
+  - bundle exec htmlproofer ./www
 after_success: |
   if [ -n "$GITHUB_API" ]; then
     cd "$TRAVIS_BUILD_DIR/www"

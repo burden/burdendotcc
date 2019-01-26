@@ -1,14 +1,9 @@
 ---
-layout: page
+layout: default
+title: ... infinite possibilities
 ---
-{%- if site.posts.size > 0 -%}
-    <h3 class="title is-3">Latest Post</h3>
-    {%- assign post = site.posts.first -%}
-    <div class="box">
-      <p class="title is-5"><a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a></p>
-      <p class="subtitle is-7">{{ post.date | date: "%b %-d, %Y" }}</p>
-      <div class="content">
-      {{ post.excerpt }}
-      </div>
-    </div>
-{%- endif -%}
+{% include section-hero-home.html %}
+{% include section-personal-intro.html %}
+{% include section-showcase.html %}
+{% include section-contributions.html %}
+{% include section-blog-preview.html %}

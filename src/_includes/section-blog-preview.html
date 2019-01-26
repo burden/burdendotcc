@@ -1,0 +1,9 @@
+{%- if site.posts.size > 0 -%} {%- assign post = site.posts.first -%}
+<section class="hero is-primary section section-normalize section-blog-preview bg-blog">
+  <div class="container">
+    <h2 class="title gumby is-size-2-mobile is-size-1-desktop has-text-centered has-text-white-ter">Blog</h2>
+    {% include article-preview.html post=post %}
+    <div class="column is-4 is-offset-4"><a href="/blog" class="button is-large is-primary is-outlined is-inverted is-fullwidth has-text-weight-semibold">Visit the blog</a></div>
+  </div>
+</section>
+{%- endif -%}

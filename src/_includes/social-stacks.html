@@ -1,0 +1,42 @@
+<p class="social-stacks">
+  <a href="{{ "/feed.xml" | relative_url }}" target="_blank">
+    <span class="icon is-{% if include.large %}large{%else%}medium{%endif%}">
+      <span class="fa-stack{% if include.large %} fa-lg{%endif%}">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+      </span>
+    </span>
+  </a>
+  <a class="has-secret-mailto" target="_blank">
+    <span class="icon is-{% if include.large %}large{%else%}medium{%endif%}">
+      <span class="fa-stack{% if include.large %} fa-lg{%endif%}">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+      </span>
+    </span>
+  </a>
+  <a href="https://keybase.io/{{ site.keybase_username }}" target="_blank">
+    <span class="icon is-{% if include.large %}large{%else%}medium{%endif%}">
+      <span class="fa-stack{% if include.large %} fa-lg{%endif%}">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-key fa-stack-1x fa-inverse"></i>
+      </span>
+    </span>
+  </a>
+  <a href="https://github.com/{{ site.github_username }}" target="_blank">
+    <span class="icon is-{% if include.large %}large{%else%}medium{%endif%}">
+      <span class="fa-stack{% if include.large %} fa-lg{%endif%}">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-github-alt fa-stack-1x fa-inverse"></i>
+      </span>
+    </span>
+  </a>
+  <a href="https://twitter.com/{{ site.twitter_username }}" target="_blank">
+    <span class="icon is-{% if include.large %}large{%else%}medium{%endif%}">
+      <span class="fa-stack{% if include.large %} fa-lg{%endif%}">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+      </span>
+    </span>
+  </a>
+</p>

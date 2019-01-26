@@ -1,0 +1,36 @@
+- name: Elixir School
+  demo: https://elixirschool.com
+  github:
+    user: elixirschool
+    repo: elixirschool
+  source: https://github.com/elixirschool/elixirschool
+  screenshot: showcase/elixirschool@0.5x.jpg
+  intro: The premier destination for learning and mastering Elixir
+  tags:
+    - shields/shield-jekyll.svg
+  about: |
+    If you're in the mood to learn a new functional programming language, you've definitely gotta check out [Elixir School](https://elixirschool.com).
+
+    While I was an early contributor on this project, I didn't come on board for anything earth shattering until the site was in need of a more constant source of fresh content; to which the solution was of course a blog. Never afraid to go the extra mile, I figured I'd take the opportunity to give the site a refresh as well-- for some extra fanfare. 
+    
+    I completely removed the original Bootstrap theme in favor of porting the [Editorial theme](https://html5up.net/editorial) by HTML5UP to Jekyll. From there I implemented the blog, then made things familiar by adding the original Elixir School color scheme.
+
+    I've since taken it upon myself to volunteer as lead / SME for all things UI / UX (sometimes Ops too). Due to popular demand, I most recently added a dark theme.
+
+- name: ColorSplash
+  demo: https://utensils.io/colorsplash
+  github:
+    user: utensils
+    repo: colorsplash
+  screenshot: showcase/colorsplash-gradient.jpg
+  tags:
+    - shields/shield-bulma.png
+    - shields/shield-react.svg
+  about: |
+    ColorSplash is a study in React that I collaborated on with [@doomspork](https://github.com/doomspork). 
+
+    This bad-boy chooses _random colors_{: style="color: #000"} for you so you don't have to.
+
+    It can also generate a _gradient_{: style="color: #000"} from _2 random colors_{: style="color: #000"} along with a _random direction_{: style="color: #000"} for those colors to collide 🤯.
+
+    If you're the kind of person that likes to take a chance, be sure to check out [ColorSplash](https://utensils.io/colorsplash).

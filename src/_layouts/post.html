@@ -1,50 +1,58 @@
 ---
-layout: default
+layout: page
 ---
-<section class="section">
-  <div class="container">
-    <article>
-      <h1 class="title is-1 has-text-centered">{{ page.title }}</h1>
-      <p class="subtitle is-5 has-text-centered">{{ page.date | date: "%b %-d, %Y" }}</p>
-      <div class="content">
-      {{ content }}
+
+<section class="section section-normalize section-blog-post">
+  <article class="container">
+    <header class="header has-text-centered">
+      <div class="tags is-centered">
+        {% for tag in page.tags %} <span class="tag is-size-7 is-primary has-text-weight-bold">{{ tag | capitalize }}</span> {% endfor %}
       </div>
-    </article>
-  </div>
-</section>
-<hr>
-<section class="section">
-  <div class="container">
-    <nav class="level">
-      <div class="level-item">
-        <div class="has-text-centered">
-        {% if page.previous %}
-          <span class="title is-7">Previous Article</span><br>
-          <a href="{{ page.previous.url | prepend: site.baseurl | prepend: site.url  }}" title="{{ page.previous.title }}" rel="prev" class="button">&laquo; {{page.previous.title}}</a>
-        {% else %}
-          <span class="title is-7">Current Article</span><br>
-          {{page.title}}
-        {% endif %}
+      <h1 class="title is-1 has-text-weight-semibold">{{ page.title }}</h1>
+      {% assign words = content | number_of_words %} {% assign mins = words | divided_by:180 %}
+      <p class="subtitle is-6">{{ page.date | date: "%b %d, %Y" }}{% if mins > 1 %} &middot; {{ mins }} min{% endif %}</p>
+    </header>
+    <div class="columns is-desktop">
+      <div class="column column-post-left is-9-desktop">
+        <div class="content has-text-weight-normal">{{ content }}</div>
+        {% include section-prev-next.html %}
+      </div>
+      <div class="column column-post-right is-3-desktop">
+        <div class="columns is-multiline">
+          <div class="column is-12-desktop is-12-tablet">
+            <div class="box">
+              <h2 class="title has-text-centered is-5 gumby gumbito">Latest Articles</h2>
+              <ul class="has-text-centered-mobile latest">
+                {% for article in site.posts limit: 5 %} {% if article.title == page.title %}{% continue %}{% endif %}
+                <li>
+                  <a class="is-size-6" href="{{ article.url }}">{{ article.title }}</a>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+          <div class="column is-12-desktop is-6-tablet">
+            <div class="box">
+              <h2 class="title has-text-centered is-5 gumby gumbito">Topics</h2>
+              <ul class="has-text-centered-mobile">
+                {% for category in site.categories %}
+                <li>{{ category[0] }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+          <div class="column is-12-desktop is-6-tablet">
+            <div class="box">
+              <h2 class="title has-text-centered is-5 gumby gumbito">Tags</h2>
+              {% capture tags %} {% for tag in site.tags %} {{ tag[0] }} {% endfor %} {% endcapture %} {% assign sortedTags = tags | split:" " | sort %}
+              <div class="tags is-centered">
+                {% for st in sortedTags %} <span class="tag tag{{ site.tags[st].size }} is-primary has-text-weight-bold">{{ st | capitalize }}</span> {% endfor %}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="level-item">
-        <div class="has-text-centered">
-        {% if page.next %}
-          <span class="title is-7">Next Article</span><br>
-          <a href="{{ page.next.url | prepend: site.baseurl | prepend: site.url }}" title="{{ page.next.title }}" rel="next" class="button">{{page.next.title}} &raquo;</a>
-        {% else %}
-          <span class="title is-7">Current Article</span><br>
-          {{page.title}}
-        {% endif %}
-        </div>
-      </div>
-      <div class="level-item">
-        <div class="has-text-centered">
-          <span class="title is-7">Related</span><br>
-          {% assign related = site.related_posts.first %}
-          <a href="{{ related.url }}" class="button">{{ related.title}}</a>
-        </div>
-      </div>
-    </nav>
-  </div>
+    </div>
+    <!-- /columns -->
+  </article>
 </section>

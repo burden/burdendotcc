@@ -14,55 +14,63 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 title: burden.cc
-email: your-email@example.com
-description: Sometimes weird; occasionally unfiltered-- almost certainly not untrue.
+description: Infinite possibilities...
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 keybase_username: burden
 twitter_username: cheapexcitement
 github_username:  burden
 github_repo: burden/burdendotcc
+email-key: PDjVWvBdECAURGxYo96mqHJ73T5M1Qt4pw0ZNrhOLsflnicFazgeSIyX8Kubk2
+email-encoded: K1@CEzmD8.uu
 
 # Build settings
 source: src
 destination: www
+
+# options for src/_layouts/compress.html
+compress_html:
+  ignore:
+    envs: ["development"]
+  clippings: []
+  comments: all
+  endings: []
+  startings: []
+  blanklines: false
+  profile: false
+
+#options for jekyll-assets
 assets:
   sources:
   - _assets/vendor
   digest: true
   compression: true
-  gzip: false
+  gzip: true
   defaults:
     js: { integrity: false } # true on JEKYLL_ENV=production
     css: { integrity: false } # true on JEKYLL_ENV=production
     img: { integrity: false } # true on JEKYLL_ENV=production
   compress:
-    css: false
+    css: true
     js: uglifier
 
+highlighter: none
 markdown: kramdown
+kramdown:
+   syntax_highlighter_opts:
+      disable : true
+
 plugins:
-  - jekyll-feed
   - jekyll-assets
   - kramdown
   - uglifier
   - jekyll-paginate
   - jekyll-redirect-from
+  - jekyll-feed
 
-paginate: 5
-paginate_path: /hullabaloo/:num/
-permalink: /hullabaloo/:categories/:title
+paginate: 4
+paginate_path: /blog/:num/
+permalink: /blog/:categories/:title/
 
 include:
   - CNAME
-# Exclude from processing.
-# The following items will not be processed, by default. Create a custom list
-# to override the default setting.
-# exclude:
-#   - Gemfile
-#   - Gemfile.lock
-#   - node_modules
-#   - vendor/bundle/
-#   - vendor/cache/
-#   - vendor/gems/
-#   - vendor/ruby/

@@ -1,0 +1,53 @@
+<div class="box showcase-box">
+  <div class="columns is-desktop{% if include.valign %} is-vcentered{% endif %}">
+    <div class="column screenshot is-4-desktop">
+      <figure class="image{% if include.item.ratio %} {{ include.item.ratio }}{%endif%}">
+        {% asset '{{ include.item.screenshot }}' alt='{{ include.item.name }}' %}
+      </figure>
+    </div> <!-- /column -->
+    <div class="column is-8-desktop">
+      <div class="content">
+        <h3 class="title has-text-weight-normal is-size-5-mobile is-size-3-tablet is-size-2-desktop">
+          <a href="{{ include.item.demo }}" target="_blank">{{ include.item.name }}</a>
+        </h3>
+        {% if include.item.tags %}
+        <p>
+          {% for tag in include.item.tags %}
+            {% if tag == 'shields/shield-bulma.png' %}
+              <img src="{% asset '{{tag}}' @path %}" alt="Made with Bulma" width="110" height="18">
+            {% else %}
+              {% asset '{{ tag }}' alt='{{tag}}' %}
+            {% endif %}
+          {% endfor %}
+        </p>
+        {% endif %}
+        {% if include.item.intro %}<blockquote>{{ include.item.intro }}</blockquote>{% endif %}
+      </div> <!-- /content -->
+      <div class="content has-text-weight-normal">
+        {{ include.item.about | markdownify }}
+      </div>
+      {% capture gh-url %}https://github.com{% endcapture %}
+      <div class="columns is-multiline">
+        <div class="column is-12">
+          <a class="button is-fullwidth" href="{{ include.item.demo }}" target="_blank">
+            <span class="icon"><i class="fas fa-globe"></i></span>
+            <span class="is-hidden-desktop">Demo</span>
+            <span class="is-hidden-touch">{{ include.item.demo }}</span>
+          </a>    
+        </div>
+        <div class="column is-11">
+          <a class="button is-fullwidth" href="{{ gh-url }}/{{include.item.github.user}}/{{ include.item.github.repo }}" target="_blank">
+            <span class="icon"><i class="fab fa-github"></i></span>
+            <span>{{ include.item.github.repo }}</span>
+          </a>
+        </div>
+        <div class="column is-1 is-hidden-mobile">
+          <a class="button is-fullwidth" href="{{ gh-url }}/{{include.item.github.user}}/{{ include.item.github.repo }}/fork" target="_blank">
+            <span class="icon"><i class="fas fa-code-branch"></i></span>
+            <!-- <span class="is-hidden-desktop">Fork</span> -->
+          </a>
+        </div>
+      </div> <!-- columns -->
+    </div> <!-- /column -->
+  </div> <!-- /columns -->
+</div> <!-- /box -->
