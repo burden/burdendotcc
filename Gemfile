@@ -1,13 +1,13 @@
 source "https://rubygems.org"
 ruby RUBY_VERSION
-gem "jekyll", "~> 3.7.3"
+gem "jekyll", "~> 3.8.5"
 gem "rake"
 gem "html-proofer"
 group :jekyll_plugins do
-  gem "jekyll-feed", "~> 0.6"
+  gem "jekyll-feed"
   gem "jekyll-assets"
   gem "kramdown"
-  gem "uglifier", "~> 3.2"
+  gem "uglifier"
   gem "jekyll-paginate"
   gem "jekyll-redirect-from"
 end

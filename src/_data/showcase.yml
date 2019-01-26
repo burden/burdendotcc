@@ -1,0 +1,39 @@
+- name: jekyll-bulma-boilerplate
+  demo: https://jekyll-bulma-boilerplate.burden.cc
+  github:
+    user: burden
+    repo: jekyll-bulma-boilerplate
+  screenshot: showcase/boilerplate@0.5x.jpg
+  intro: A nifty boilerplate for Jekyll made magnificent with the help of Bulma.
+  about: >-
+    Everything you need to get started building your very own sass enabled website. 
+
+- name: jekyll-business-sense
+  demo: https://jekyll-business-sense.burden.cc
+  github:
+    user: burden
+    repo: jekyll-business-sense
+  screenshot: showcase/business@0.5x.jpg
+  intro: A remarkable single page Jekyll theme for your small business, packed full of SERP tidbits.
+  about: >-
+    Notable features: scrollspy navigation, contact form, lightbox-style image gallery, testimonial carousel.
+    
+- name: jekyll-cards-boilerplate
+  demo: https://jekyll-cards-boilerplate.burden.cc
+  github:
+    user: burden
+    repo: jekyll-cards-boilerplate
+  screenshot: showcase/cards@0.5x.jpg
+  intro: A card theme for Jekyll made awesome using Bulma.
+  about: >-
+    Notable features: categorized cards, and a quick search for visitors.
+
+- name: jekyll-sponsors-boilerplate
+  demo: https://jekyll-sponsors-boilerplate.burden.cc
+  github:
+    user: burden
+    repo: jekyll-sponsors-boilerplate
+  screenshot: showcase/sponsors@0.5x.jpg
+  intro: A Jekyll theme for giving thanks to your sponsors made extraordinary using Bulma.
+  about: >-
+    Notable features: easily manage campaigns, and sponsors. Stripe "buy now" integration.

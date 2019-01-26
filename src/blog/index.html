@@ -1,0 +1,29 @@
+---
+layout: page
+title: Sometimes weird; occasionally unfiltered-- almost certainly not untrue.
+redirect_from:
+  - /blog/updates/
+---
+
+{% if paginator.page == 1 %}
+<section class="hero is-primary section-blog-featured">
+  <div class="hero-body">
+    <div class="container">
+      {% assign featured = site.posts.last %}
+      <h1 class="title is-5">Featured</h1>
+      {% include article-preview.html post=featured bg=true %}
+    </div>
+  </div>
+</section>
+{% endif %}
+<section class="section section-blog-page{% if paginator.page == 1 %} pants-up{% endif %}">
+  <div class="container">
+    <h2 class="title is-5">{% if paginator.page == 1 %}Latest{% else %}Page {{ paginator.page }}{% endif %}</h2>
+    <div class="columns is-multiline">
+      {%- for post in paginator.posts -%}
+      <div class="column is-half">{% include article-preview.html post=post box=false %}</div>
+      {%- endfor -%}
+    </div>
+    {% include nav-pagination.html %}
+  </div>
+</section>

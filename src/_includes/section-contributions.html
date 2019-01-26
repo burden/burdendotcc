@@ -1,0 +1,12 @@
+<section class="section section-normalize section-contributions">
+  <div class="container">
+    <h2 class="title gumby is-size-2-mobile is-size-1-desktop has-text-centered" id="contributions">Contributions</h2>
+    <div style="padding: 0px" class="content column is-10 is-offset-1 has-text-centered"><p>Sharing is caring, and this time open source is the name of the game.</p></div>
+    <div class="content">{% for project in site.data.contributions %}{% include showcase-box.html item=project %}{% endfor %}</div>
+    <div class="column is-4 is-offset-4">
+      <a class="button is-large is-dark is-outlined is-fullwidth has-text-weight-semibold" href="https://github.com/burden" target="_blank">
+        <span class="icon is-medium"><i class="fab fa-github"></i></span> <span>See more</span>
+      </a>
+    </div>
+  </div>
+</section>

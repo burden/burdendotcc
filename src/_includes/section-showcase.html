@@ -1,0 +1,25 @@
+<section class="section section-showcase bg-maelstrom">
+  <div class="container">
+    <h2 class="title is-size-1-desktop is-size-2-touch has-text-white has-text-centered has-text-weight-bold" id="showcase">Showcase</h2>
+    <div class="content has-text-white-ter column is-10 is-offset-1">
+      <p class="has-text-centered">All projects are handcrafted using only the finest artisanal ingredients. <em>Mangia!!</em></p>
+      <h3 class="title has-text-white-ter is-size-4-mobile is-size-3-tablet is-size-2-desktop has-text-weight-semibold">Jekyll Boilerplates</h3>
+      <p>
+        {% asset shields/shield-jekyll.svg alt="Powered by Jekyll" %} {% asset shields/shield-bulma.png alt="Made with Bulma" width="110" height="18" %} {% asset shields/shield-ghpages.svg alt="Host
+        on Github Pages" %} {% asset shields/shield-travis.svg alt="Deploy with Travis" %}
+      </p>
+      <p>
+        Who doesn't love to save time with a turnkey website? Here are a handful that I did with the help of Jekyll and Bulma. Jekyll is a static site generator that allows you to think modular, but
+        doesn't require all of the extra overhead that comes with some other choices. Bulma is a CSS framework based on flexbox.
+      </p>
+      <p>With a little setup, these boilerplates can be deployed to Github Pages for FREE hosting.</p>
+      <p>
+        I encourage you to pick them apart, learn, and do what you need to do to make it yours. I'd love to see what you make. If you need any support or you have a budget and would rather have me do
+        it for you instead, feel free to <a href="mailto:io@burden.cc" class="has-text-white-ter bold">reach out</a>.
+      </p>
+    </div>
+    <!-- /content -->
+    <div class="content">{% for project in site.data.showcase %} {% include showcase-box.html item=project valign=true %} {% endfor %}</div>
+  </div>
+  <!-- /container -->
+</section>
