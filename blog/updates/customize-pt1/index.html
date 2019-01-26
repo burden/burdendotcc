@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="contact" data-encoded="K1@CEzmD8.uu" data-key="PDjVWvBdECAURGxYo96mqHJ73T5M1Qt4pw0ZNrhOLsflnicFazgeSIyX8Kubk2">
+    <title>Getting settled in (part 1) | burden.cc</title>
+    <link rel="stylesheet" type="text/css" href="/assets/style-d697eee753076c1efe73d1ff75c4854b1d90dd4b543213ab7385af785ef71d5e.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+  </head>
+  <body>
+    <nav class="navbar is-primary" role="navigation" aria-label="main navigation"><div class="container">
+  <div class="navbar-brand" role="navigation" aria-label="main navigation">
+    <div class="navbar-item is-hidden-desktop"><span class="title is-6 has-text-white-ter">burden.cc</span></div>
+    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div class="navbar-menu" id="navbarBasicExample">
+    <div class="navbar-centered">
+      <a class="navbar-item" href="/">
+        <span class="icon"> <i class="fas fa-home"></i> </span>
+      </a>
+
+      <a class="navbar-item has-text-weight-semibold" href="/blog">Blog</a>
+    </div>
+  </div>
+</div>
+</nav>
+<section class="section section-normalize section-blog-post">
+  <article class="container">
+    <header class="header has-text-centered">
+      <div class="tags is-centered">
+         <span class="tag is-size-7 is-primary has-text-weight-bold">Walkthrough</span>  <span class="tag is-size-7 is-primary has-text-weight-bold">Jekyll</span> 
+      </div>
+      <h1 class="title is-1 has-text-weight-semibold">Getting settled in (part 1)</h1>
+       
+      <p class="subtitle is-6">May 31, 2018</p>
+    </header>
+    <div class="columns is-desktop">
+      <div class="column column-post-left is-9-desktop">
+        <div class="content has-text-weight-normal"><p>Up until I finish these “Getting settled in” posts, the site is using a boring old default minima theme. It’s actually really well rounded, but me being me, I can’t live with default.</p>
+
+<p>As usual, we’ll start the post with a new branch.</p>
+
+<pre><code>$ git checkout -b assets
+</code></pre>
+
+<h2 id="dependencies">Dependencies</h2>
+
+<p>For part 1 of <em>this</em> part of <em>this</em> “Let’s start from scratch” series, we’re finally getting around to installing asset dependencies with the help of <a href="https://bower.io">Bower</a>.</p>
+
+<p>No site is complete without <code>jquery</code>, and for prettys I am ditching <code>bourbon</code> in favor of <code>bulma</code>.</p>
+
+<p>First we’ll create a <code>.bowerrc</code> file that disables usage statistics, and tells Bower where to save the dependencies.</p>
+
+<pre><code>{
+    "analytics": false,
+    "directory": "src/_assets/vendor"
+}
+</code></pre>
+
+<p>Then we’ll initialize the <code>bower.json</code> file. Get ready to answer some questions.</p>
+
+<pre><code>$ bower init
+</code></pre>
+
+<p>Install <code>jquery</code> and <code>bulma</code> which creates the <code>src/_assets/vendor</code> directory. On a side note, we’ll be in that <code>src/_assets/</code> directory a <em>whole</em> bunch.</p>
+
+<pre><code>$ bower install --save &lt;package&gt;
+</code></pre>
+
+<p>Let’s scope out <code>bower.json</code> real quick.</p>
+
+<pre><code>{
+  "name": "burdendotcc",
+  "authors": [
+    "burden &lt;burden@burden.cc&gt;"
+  ],
+  "description": "",
+  "main": "",
+  "license": "",
+  "homepage": "burden.cc",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "src/_assets/vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "bulma": "^0.7.1"
+  }
+}
+</code></pre>
+
+<p>Update <code>.gitignore</code>.</p>
+
+<pre><code>www
+src/_assets/vendor
+</code></pre>
+
+<p>Add an <code>assets:</code> section to <code>_config.yml</code>.</p>
+
+<pre><code>destination: www
+assets:
+  sources:
+  - _assets/vendor
+  digest: true
+  compression: true
+  gzip: false
+  defaults:
+    js: { integrity: false } # true on JEKYLL_ENV=production
+    css: { integrity: false } # true on JEKYLL_ENV=production
+    img: { integrity: false } # true on JEKYLL_ENV=production
+  compress:
+    css: false
+    js: uglifier
+
+</code></pre>
+
+<p>Wrapping everything up, we need to make a quick addition to
+<code>.travis.yml</code>, telling it to do the bower thing before building.</p>
+
+<pre><code>before_script:
+  - npm install -g bower
+  - bower install
+</code></pre>
+
+<p>At this stage, we’re not doing anything with the dependencies yet. Next time around, we’ll do something about that. Let’s commit and move on.</p>
+
+<pre><code>$ git add .
+$ git commit -m "Adding customize post pt1"
+</code></pre>
+</div>
+        <section class="section section-normalize">
+  <div class="columns is-mobile prev-next">
+    <div class="column is-6">
+      
+        <h2 class="title is-7 has-text-grey-light">Previous article</h2>
+        <p class="has-text-weight-semibold"><a href="/blog/updates/stage/" title="Continuous Integration, testing and staging" rel="prev">&laquo; Continuous Integration, testing and staging</a></p>
+      
+    </div>
+    <div class="column is-6 has-text-right">
+      
+        <h2 class="title is-7 has-text-grey-light">Next article</h2>
+        <p class="has-text-weight-semibold"><a href="/blog/updates/customize-pt2/" title="Getting settled in (part 2)" rel="next">Getting settled in (part 2) &raquo;</a></p>
+      
+    </div>
+  </div>
+</section>
+
+
+      </div>
+      <div class="column column-post-right is-3-desktop">
+        <div class="columns is-multiline">
+          <div class="column is-12-desktop is-12-tablet">
+            <div class="box">
+              <h2 class="title has-text-centered is-5 gumby gumbito">Latest Articles</h2>
+              <ul class="has-text-centered-mobile latest">
+                 
+                <li>
+                  <a class="is-size-6" href="/blog/updates/launch-notes/">Launch notes 🎉</a>
+                </li>
+                 
+                <li>
+                  <a class="is-size-6" href="/blog/updates/a-real-hullabaloo/">Preparing for a real hullabaloo</a>
+                </li>
+                 
+                <li>
+                  <a class="is-size-6" href="/blog/updates/customize-pt2/">Getting settled in (part 2)</a>
+                </li>
+                  
+                <li>
+                  <a class="is-size-6" href="/blog/updates/stage/">Continuous Integration, testing and staging</a>
+                </li>
+                
+              </ul>
+            </div>
+          </div>
+          <div class="column is-12-desktop is-6-tablet">
+            <div class="box">
+              <h2 class="title has-text-centered is-5 gumby gumbito">Topics</h2>
+              <ul class="has-text-centered-mobile">
+                
+                <li>updates</li>
+                
+              </ul>
+            </div>
+          </div>
+          <div class="column is-12-desktop is-6-tablet">
+            <div class="box">
+              <h2 class="title has-text-centered is-5 gumby gumbito">Tags</h2>
+               
+              <div class="tags is-centered">
+                 <span class="tag tag5 is-primary has-text-weight-bold">Jekyll</span>  <span class="tag tag5 is-primary has-text-weight-bold">Walkthrough</span> 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /columns -->
+  </article>
+</section>
+
+    <footer class="footer has-text-weight-light">
+  <div class="container">
+    <div class="content has-text-centered">
+      <p class="is-size-6"><a href="/">Home</a> &middot <a href="/blog">Blog</a></p>
+      <p class="social-stacks">
+  <a href="/feed.xml" target="_blank">
+    <span class="icon is-medium">
+      <span class="fa-stack">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+      </span>
+    </span>
+  </a>
+  <a class="has-secret-mailto" target="_blank">
+    <span class="icon is-medium">
+      <span class="fa-stack">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+      </span>
+    </span>
+  </a>
+  <a href="https://keybase.io/burden" target="_blank">
+    <span class="icon is-medium">
+      <span class="fa-stack">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-key fa-stack-1x fa-inverse"></i>
+      </span>
+    </span>
+  </a>
+  <a href="https://github.com/burden" target="_blank">
+    <span class="icon is-medium">
+      <span class="fa-stack">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-github-alt fa-stack-1x fa-inverse"></i>
+      </span>
+    </span>
+  </a>
+  <a href="https://twitter.com/cheapexcitement" target="_blank">
+    <span class="icon is-medium">
+      <span class="fa-stack">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+      </span>
+    </span>
+  </a>
+</p>
+      <p class="is-size-7">Website maintained by <a href="https://github.com/burden">@burden</a><br />The contents of this website are &copy; 2019 under the terms of the MIT License.</p>
+      <p>
+        <a href="https://github.com/burden/burdendotcc" class="button is-outlined is-small"
+          ><span>view source</span><span class="icon"><i class="fab fa-github"></i></span
+        ></a>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    <script src="/assets/main-402a8c9e8d6384d57942e24ae6f3449b4ff58cf086c0b9174cb05c282ce50b92.js" type="text/javascript"></script>
+  </body>
+</html>
+

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="contact" data-encoded="K1@CEzmD8.uu" data-key="PDjVWvBdECAURGxYo96mqHJ73T5M1Qt4pw0ZNrhOLsflnicFazgeSIyX8Kubk2">
+    <title>Getting settled in (part 2) | burden.cc</title>
+    <link rel="stylesheet" type="text/css" href="/assets/style-d697eee753076c1efe73d1ff75c4854b1d90dd4b543213ab7385af785ef71d5e.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+  </head>
+  <body>
+    <nav class="navbar is-primary" role="navigation" aria-label="main navigation"><div class="container">
+  <div class="navbar-brand" role="navigation" aria-label="main navigation">
+    <div class="navbar-item is-hidden-desktop"><span class="title is-6 has-text-white-ter">burden.cc</span></div>
+    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div class="navbar-menu" id="navbarBasicExample">
+    <div class="navbar-centered">
+      <a class="navbar-item" href="/">
+        <span class="icon"> <i class="fas fa-home"></i> </span>
+      </a>
+
+      <a class="navbar-item has-text-weight-semibold" href="/blog">Blog</a>
+    </div>
+  </div>
+</div>
+</nav>
+<section class="section section-normalize section-blog-post">
+  <article class="container">
+    <header class="header has-text-centered">
+      <div class="tags is-centered">
+         <span class="tag is-size-7 is-primary has-text-weight-bold">Walkthrough</span>  <span class="tag is-size-7 is-primary has-text-weight-bold">Jekyll</span> 
+      </div>
+      <h1 class="title is-1 has-text-weight-semibold">Getting settled in (part 2)</h1>
+       
+      <p class="subtitle is-6">Jun 01, 2018 &middot; 2 min</p>
+    </header>
+    <div class="columns is-desktop">
+      <div class="column column-post-left is-9-desktop">
+        <div class="content has-text-weight-normal"><p>In part 2, I’ll be putting everything together to build our new template.</p>
+
+<p>First, we have to deal with the aftermath of part 1. htmlproofer was bitching to me about SSL connect errors so we need to update <code>.travis.yml</code> telling travis to rock openSSL instead.</p>
+
+<pre><code>addons:
+  apt:
+    packages:
+    - libcurl4-openssl-dev
+</code></pre>
+
+<p>…and now back to our regularly scheduled programming…</p>
+
+<h2 id="a-new-default">A new default</h2>
+
+<p>Because we’re ditching minima, we’re going to need to build out some templates, and drop in our own style. Let’s get started!</p>
+
+<p>Let’s begin by removing references to minima from <code>_config.yml</code> and <code>Gemfile</code>.</p>
+
+<p>Update bundler.</p>
+
+<pre><code>$ bundle install
+</code></pre>
+
+<p>Now we can create a stylesheet <code>src/_assets/css/style.scss</code>. Note the first <code>s</code> in <code>.scss</code> which affords us super powers.</p>
+
+<pre><code>@import 'bulma/bulma';
+</code></pre>
+
+<p>We’ll be using some javascript soon enough <code>src/_assets/js/main.js</code></p>
+
+<pre><code>//= require jquery/dist/jquery.min.js
+</code></pre>
+
+<p>Note: back in part 1, we added <code>src/_assets/vendor</code> to the asset configuration’s <code>source:</code> list, so in both instances, it knows where to look.</p>
+
+<p>Finally we’ll create a default layout <code>src/_layouts/default.html</code> which will act as our base for all the pages.</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+  &lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;meta http-equiv="X-UA-Compatible" content="IE=edge"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+    &lt;title&gt;{{ site.title }}&lt;/title&gt;
+    {% asset style.css %}
+    &lt;script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"&gt;&lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1 class="title is-1 has-text-centered"&gt;{{ site. title }}&lt;/h1&gt;
+    {{ content }}
+    {% asset main.js %}
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<h2 id="moving-right-along">Moving right along</h2>
+
+<p>Jekyll leads you on with “post”, “page”, and “home” layouts by default, which sorta makes sense, so I’m gonna go with it.</p>
+
+<p>Let’s work on that, starting with <code>src/_layouts/home.html</code>.</p>
+
+<pre><code>---
+layout: default
+---
+&lt;section class="section"&gt;
+  &lt;div class="container"&gt;
+    &lt;div class="content"&gt;
+      {{ content }}
+      {%- if site.posts.size &gt; 0 -%}
+          {%- for post in site.posts -%}
+          &lt;div class="box"&gt;
+            &lt;p class="title is-3"&gt;&lt;a href="{{ post.url | relative_url }}"&gt;{{ post.title | escape }}&lt;/a&gt;&lt;/p&gt;
+            &lt;p class="subtitle is-5"&gt;{{ post.date | date: "%b %-d, %Y" }}&lt;/p&gt;
+            {{ post.excerpt }}
+          &lt;/div&gt;
+          {%- endfor -%}
+        &lt;p&gt;subscribe &lt;a href="{{ "/feed.xml" | relative_url }}"&gt;via RSS&lt;/a&gt;&lt;/p&gt;
+      {%- endif -%}
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+
+</code></pre>
+
+<p>This will be the home page which will just loop through all of the posts and call it a day.</p>
+
+<p>Now let’s move on to <code>src/_layouts/post.html</code></p>
+
+<pre><code>---
+layout: default
+---
+&lt;section class="section"&gt;
+  &lt;div class="container"&gt;
+    &lt;article class="content"&gt;
+      &lt;h1 class="title is-3"&gt;{{ page.title }}&lt;/h1&gt;
+      &lt;p class="subtitle is-5"&gt;{{ page.date | date: "%b %-d, %Y" }}&lt;/p&gt;
+      {{ content }}
+    &lt;/article&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+</code></pre>
+
+<p><code>src/_layouts/page.html</code> is basically the same, but instead of an article tag, we’re just using another div.</p>
+
+<pre><code>---
+layout: default
+---
+&lt;section class="section"&gt;
+  &lt;div class="container"&gt;
+    &lt;div class="content"&gt;
+      {{ content }}
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+</code></pre>
+
+<p>At last, to end this 2-parter, I’m finally gonna get personal with <code>_config.yml</code>.</p>
+
+<pre><code>title: burden.cc
+email: your-email@example.com
+description: Sometimes weird; occasionally unfiltered-- almost certainly not untrue.
+</code></pre>
+
+<p>You’ll want to replace those values with your own. Let’s do what we do, and finally turn our attention to that blog.</p>
+
+<pre><code>$ git add .
+$ git commit -m "Adding customize post pt2"
+$ git push origin ci
+</code></pre>
+</div>
+        <section class="section section-normalize">
+  <div class="columns is-mobile prev-next">
+    <div class="column is-6">
+      
+        <h2 class="title is-7 has-text-grey-light">Previous article</h2>
+        <p class="has-text-weight-semibold"><a href="/blog/updates/customize-pt1/" title="Getting settled in (part 1)" rel="prev">&laquo; Getting settled in (part 1)</a></p>
+      
+    </div>
+    <div class="column is-6 has-text-right">
+      
+        <h2 class="title is-7 has-text-grey-light">Next article</h2>
+        <p class="has-text-weight-semibold"><a href="/blog/updates/a-real-hullabaloo/" title="Preparing for a real hullabaloo" rel="next">Preparing for a real hullabaloo &raquo;</a></p>
+      
+    </div>
+  </div>
+</section>
+
+
+      </div>
+      <div class="column column-post-right is-3-desktop">
+        <div class="columns is-multiline">
+          <div class="column is-12-desktop is-12-tablet">
+            <div class="box">
+              <h2 class="title has-text-centered is-5 gumby gumbito">Latest Articles</h2>
+              <ul class="has-text-centered-mobile latest">
+                 
+                <li>
+                  <a class="is-size-6" href="/blog/updates/launch-notes/">Launch notes 🎉</a>
+                </li>
+                 
+                <li>
+                  <a class="is-size-6" href="/blog/updates/a-real-hullabaloo/">Preparing for a real hullabaloo</a>
+                </li>
+                  
+                <li>
+                  <a class="is-size-6" href="/blog/updates/customize-pt1/">Getting settled in (part 1)</a>
+                </li>
+                 
+                <li>
+                  <a class="is-size-6" href="/blog/updates/stage/">Continuous Integration, testing and staging</a>
+                </li>
+                
+              </ul>
+            </div>
+          </div>
+          <div class="column is-12-desktop is-6-tablet">
+            <div class="box">
+              <h2 class="title has-text-centered is-5 gumby gumbito">Topics</h2>
+              <ul class="has-text-centered-mobile">
+                
+                <li>updates</li>
+                
+              </ul>
+            </div>
+          </div>
+          <div class="column is-12-desktop is-6-tablet">
+            <div class="box">
+              <h2 class="title has-text-centered is-5 gumby gumbito">Tags</h2>
+               
+              <div class="tags is-centered">
+                 <span class="tag tag5 is-primary has-text-weight-bold">Jekyll</span>  <span class="tag tag5 is-primary has-text-weight-bold">Walkthrough</span> 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /columns -->
+  </article>
+</section>
+
+    <footer class="footer has-text-weight-light">
+  <div class="container">
+    <div class="content has-text-centered">
+      <p class="is-size-6"><a href="/">Home</a> &middot <a href="/blog">Blog</a></p>
+      <p class="social-stacks">
+  <a href="/feed.xml" target="_blank">
+    <span class="icon is-medium">
+      <span class="fa-stack">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+      </span>
+    </span>
+  </a>
+  <a class="has-secret-mailto" target="_blank">
+    <span class="icon is-medium">
+      <span class="fa-stack">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+      </span>
+    </span>
+  </a>
+  <a href="https://keybase.io/burden" target="_blank">
+    <span class="icon is-medium">
+      <span class="fa-stack">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-key fa-stack-1x fa-inverse"></i>
+      </span>
+    </span>
+  </a>
+  <a href="https://github.com/burden" target="_blank">
+    <span class="icon is-medium">
+      <span class="fa-stack">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-github-alt fa-stack-1x fa-inverse"></i>
+      </span>
+    </span>
+  </a>
+  <a href="https://twitter.com/cheapexcitement" target="_blank">
+    <span class="icon is-medium">
+      <span class="fa-stack">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+      </span>
+    </span>
+  </a>
+</p>
+      <p class="is-size-7">Website maintained by <a href="https://github.com/burden">@burden</a><br />The contents of this website are &copy; 2019 under the terms of the MIT License.</p>
+      <p>
+        <a href="https://github.com/burden/burdendotcc" class="button is-outlined is-small"
+          ><span>view source</span><span class="icon"><i class="fab fa-github"></i></span
+        ></a>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    <script src="/assets/main-402a8c9e8d6384d57942e24ae6f3449b4ff58cf086c0b9174cb05c282ce50b92.js" type="text/javascript"></script>
+  </body>
+</html>
+

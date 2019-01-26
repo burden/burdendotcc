@@ -1,0 +1,724 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2019-01-26T12:13:15+00:00</updated><id>/feed.xml</id><title type="html">burden.cc</title><subtitle>Infinite possibilities...</subtitle><entry><title type="html">Launch notes 🎉</title><link href="/blog/updates/launch-notes/" rel="alternate" type="text/html" title="Launch notes 🎉" /><published>2019-01-25T12:39:58+00:00</published><updated>2019-01-25T12:39:58+00:00</updated><id>/blog/updates/launch-notes</id><content type="html" xml:base="/blog/updates/launch-notes/">&lt;p&gt;👋 Oh, hello again there stranger. Sure was a long time coming but I’m so glad you were able to make it to another launch party! How do you like the new digs?? Hit me up from the site footer until I get a contact form setup.&lt;/p&gt;
+
+&lt;p&gt;This time around I’ve made my site open source. Be sure to see &lt;a href=&quot;https://github.com/burden/burdendotcc&quot;&gt;Github&lt;/a&gt; if you’re interested in checking out what’s under the hood.&lt;/p&gt;
+
+&lt;h2 id=&quot;make-yourself-at-home&quot;&gt;Make yourself at home&lt;/h2&gt;
+
+&lt;p&gt;This latest burden.cc ditches &lt;a href=&quot;https://bourbon.io&quot;&gt;Bourbon&lt;/a&gt; in favor of &lt;a href=&quot;https://bulma.io&quot;&gt;Bulma&lt;/a&gt; for style. The primary color is a classic deep cyan. When you throw that cyan into a color wheel you get a yellow that reminds me of a ripe banana, which is sort of a thing for me that means “health is wealth”– a reminder of rougher seas long ago. For a font I chose &lt;a href=&quot;https://github.com/JulietaUla/Montserrat&quot;&gt;Montserrat&lt;/a&gt; because it has a wonderful range of weights built for making walls of text easy to look at and I’ve been really itching to work with it.&lt;/p&gt;
+
+&lt;p&gt;My intentions with this site in the past were always aimless, which wasn’t doing anyone a favor. Moving forward I’ll be trying my hand at generating &lt;em&gt;meaninful&lt;/em&gt; content, beginning with a walkthrough blog series and the introduction of 4 Jekyll boilerplates, which can be found on the home page under the &lt;a href=&quot;/#showcase&quot;&gt;Showcase&lt;/a&gt; section.&lt;/p&gt;
+
+&lt;h2 id=&quot;walkthrough&quot;&gt;Walkthrough&lt;/h2&gt;
+
+&lt;p&gt;In addition to a completely redesigned home page, I wanted to kick off the new blog with a walkthrough series that basically shows you how to create your very own website with Jekyll from scratch. Spoiler alert. When you get to the end of the series, you’ll be left with a functioning blog.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;/blog/updates/welcome&quot;&gt;Welcome to another burden.cc&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;/blog/updates/stage&quot;&gt;Continuous Integration, testing and staging&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;/blog/updates/customize-pt1&quot;&gt;Getting settled in (part 1)&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;/blog/updates/customize-pt2&quot;&gt;Getting settled in (part 2)&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;/blog/updates/a-real-hullabaloo&quot;&gt;Preparing for a real hullabaloo&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;future-site-updates&quot;&gt;Future Site Updates&lt;/h2&gt;
+
+&lt;p&gt;Upcoming site updates will be accompanied by a summary of new futures and in some cases I may even include a little bit of a deep-dive. All site updates can be found in the “updates” category.&lt;/p&gt;
+
+&lt;p&gt;So there you have it. Please have a look around and enjoy your stay.&lt;/p&gt;</content><author><name></name></author><summary type="html">👋 Oh, hello again there stranger. Sure was a long time coming but I’m so glad you were able to make it to another launch party! How do you like the new digs?? Hit me up from the site footer until I get a contact form setup.</summary></entry><entry><title type="html">Preparing for a real hullabaloo</title><link href="/blog/updates/a-real-hullabaloo/" rel="alternate" type="text/html" title="Preparing for a real hullabaloo" /><published>2018-09-24T08:18:04+00:00</published><updated>2018-09-24T08:18:04+00:00</updated><id>/blog/updates/a-real-hullabaloo</id><content type="html" xml:base="/blog/updates/a-real-hullabaloo/">&lt;p&gt;This last one’s about building out the pages for the blog, so that I can use the home page for something else.&lt;/p&gt;
+
+&lt;p&gt;In this edition, we’re gonna be adding a page for this blog to call home. Then we’ll build out the template for articles and add some navigation.&lt;/p&gt;
+
+&lt;p&gt;Before we get started, create a new branch and open another beer.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git checkout -b blog
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;dependencies&quot;&gt;Dependencies&lt;/h2&gt;
+
+&lt;p&gt;First we need to add a library to our project to handle pagination. We’ll get into it later in this article, but we need to add one to produce redirects as well.&lt;/p&gt;
+
+&lt;p&gt;Edit the &lt;code&gt;Gemfile&lt;/code&gt; then add &lt;code&gt;jekyll-paginate&lt;/code&gt; and &lt;code&gt;jekyll-redirect-from&lt;/code&gt; to the &lt;code&gt;:jekyll_plugins&lt;/code&gt; block.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;group :jekyll_plugins do
+  ...
+  gem &quot;jekyll-paginate&quot;
+  gem &quot;jekyll-redirect-from&quot;
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Next you’ll need to make some additions to &lt;code&gt;_config.yml&lt;/code&gt;. First add &lt;code&gt;jekyll-paginate&lt;/code&gt; and &lt;code&gt;jekyll-redirect-from&lt;/code&gt; to the &lt;code&gt;plugins:&lt;/code&gt; block.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;plugins:
+  ...
+  - jekyll-paginate
+  - jekyll-redirect-from
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For contextual purposes, we want to keep everything in the address bar that’s blog related behind &lt;code&gt;/blog/&lt;/code&gt;. To do that, add directives for pagination, and permalink.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;...
+paginate: 4
+paginate_path: /blog/:num/
+permalink: /blog/:categories/:title
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;As you may have been able to deduce, we’ll end up with paginated pages at &lt;code&gt;/blog/2/&lt;/code&gt; and articles at &lt;code&gt;/blog/category/article-title&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;With dependencies in place we can get started on our next tasks.&lt;/p&gt;
+
+&lt;h2 id=&quot;blog-pages&quot;&gt;Blog Pages&lt;/h2&gt;
+
+&lt;p&gt;In the spirit of displaying our collection of articles in a reasonable manner, the blog’s home page will be…&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;located at &lt;code&gt;/blog/&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;paginated&lt;/li&gt;
+  &lt;li&gt;with the newest article displayed first&lt;/li&gt;
+  &lt;li&gt;4 articles per page&lt;/li&gt;
+  &lt;li&gt;each article displayed within 1 column of a 2x2 square&lt;/li&gt;
+  &lt;li&gt;bonus! a featured article at the top of page 1&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Sounds pretty straight forward, so let’s get started.&lt;/p&gt;
+
+&lt;p&gt;On the subject of listing articles, we’re going to build an article preview that can be included throughout the site. It’ll accept two arguments. A &lt;code&gt;post&lt;/code&gt; object containing the post to preview, and a boolean called &lt;code&gt;box&lt;/code&gt; to indicate whether or not you’d like the preview to include the box class.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;_includes/article-preview.html&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;
+&amp;lt;article{% unless include.box == false %} class=&quot;box&quot;{% endunless%}&amp;gt;
+  &amp;lt;h3 class=&quot;title&quot;&amp;gt;&amp;lt;a href=&quot;{{ include.post.url | relative_url }}&quot;&amp;gt;{{ include.post.title | escape }}&amp;lt;/a&amp;gt;&amp;lt;/h3&amp;gt;
+  {% assign topic = post.categories.first %}
+  &amp;lt;p class=&quot;subtitle&quot;&amp;gt;{% if topic %}in {{ topic }} {% endif %}{{ include.post.date | date: &quot;%b %-d, %Y&quot; }}&amp;lt;/p&amp;gt;
+  &amp;lt;div class=&quot;content&quot;&amp;gt;
+  {{ include.post.excerpt }}
+  &amp;lt;/div&amp;gt;
+  &amp;lt;a href=&quot;{{ include.post.url }}&quot; class=&quot;button is-primary is-outlined&quot;&amp;gt;Keep reading&amp;lt;/a&amp;gt;
+&amp;lt;/article&amp;gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;With that out of the way, let’s start working on our blog page. Create a &lt;code&gt;/blog/&lt;/code&gt; directory, and add an &lt;code&gt;index.html&lt;/code&gt; file.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ mkdir src/blog
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;src/blog/index.html&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;
+---
+layout: page
+---
+{% if paginator.page == 1 %}
+&amp;lt;section class=&quot;hero is-primary&quot;&amp;gt;
+  &amp;lt;div class=&quot;hero-body&quot;&amp;gt;
+    &amp;lt;div class=&quot;container&quot;&amp;gt;
+      &amp;lt;h1 class=&quot;title&quot;&amp;gt;
+        Featured
+      &amp;lt;/h1&amp;gt;
+      {% assign featured = site.posts.last %}
+      {% include article-preview.html post=featured %}
+    &amp;lt;/div&amp;gt;
+  &amp;lt;/div&amp;gt;
+&amp;lt;/section&amp;gt;
+{% endif %}
+&amp;lt;section class=&quot;section section-blog-page&quot;&amp;gt;
+  &amp;lt;div class=&quot;container&quot;&amp;gt;
+    &amp;lt;h2 class=&quot;title&quot;&amp;gt;{% if paginator.page == 1 %}Latest{% else %}Page {{ paginator.page }}{% endif %}&amp;lt;/h2&amp;gt;
+    &amp;lt;div class=&quot;columns is-multiline&quot;&amp;gt;
+      {%- for post in paginator.posts -%}
+        &amp;lt;div class=&quot;column is-half&quot;&amp;gt;
+        {% include article-preview.html post=post box=false %}
+        &amp;lt;/div&amp;gt;
+      {%- endfor -%}
+    &amp;lt;/div&amp;gt;
+  &amp;lt;/div&amp;gt;
+&amp;lt;/section&amp;gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;At this point we can implement pagination with the help of Bulma’s &lt;a href=&quot;https://bulma.io/documentation/components/pagination/&quot;&gt;pagination&lt;/a&gt; component.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;_includes/nav-pagination.html&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;
+{% if paginator.total_pages &amp;gt; 1 %}
+&amp;lt;nav class=&quot;pagination is-right&quot; role=&quot;navigation&quot; aria-label=&quot;pagination&quot;&amp;gt;
+  &amp;lt;a {% if paginator.previous_page %}href=&quot;{{ paginator.previous_page_path }}&quot;{% endif %} class=&quot;pagination-previous&quot;{% unless paginator.previous_page %} disabled{% endunless %}&amp;gt;Previous&amp;lt;/a&amp;gt;
+  &amp;lt;a {% if paginator.next_page %}href=&quot;{{ paginator.next_page_path }}&quot;{% endif %} class=&quot;pagination-next&quot;{% unless paginator.next_page %} disabled{% endunless %}&amp;gt;Next&amp;lt;/a&amp;gt;
+  &amp;lt;ul class=&quot;pagination-list&quot;&amp;gt;
+  {% for page in (1..paginator.total_pages)%}
+    {% capture page-url %}{% if page == 1 %}{{ site.paginate_path | replace: ':num/', '' }}{% else %}{{ site.paginate_path | replace: ':num', page }}{% endif %}{% endcapture %}
+    &amp;lt;li&amp;gt;&amp;lt;a href=&quot;{{ page-url | prepend: site.baseurl | prepend: site.url }}&quot; class=&quot;pagination-link{% if page == paginator.page %} is-current{% endif %}&quot;&amp;gt;{{ page }}&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;
+  {% endfor %}
+  &amp;lt;/ul&amp;gt;
+&amp;lt;/nav&amp;gt;
+{% endif %}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To wrap things up for the blog page, we’ll add &lt;code&gt;nav-pagination.html&lt;/code&gt; under the articles in &lt;code&gt;/src/blog/index.html&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;
+&amp;lt;hr&amp;gt;
+{% include nav-pagination.html %}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;articles&quot;&gt;Articles&lt;/h2&gt;
+
+&lt;p&gt;Display header&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Title of article as H1&lt;/li&gt;
+  &lt;li&gt;Display article tags above Title&lt;/li&gt;
+  &lt;li&gt;Display date beneath Title&lt;/li&gt;
+  &lt;li&gt;Show article contents under Title&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;
+&amp;lt;section class=&quot;section section-blog-post&quot;&amp;gt;
+  &amp;lt;article class=&quot;container&quot;&amp;gt;
+    &amp;lt;header class=&quot;header has-text-centered&quot;&amp;gt;
+      &amp;lt;div class=&quot;tags is-centered&quot;&amp;gt;
+        {% for tag in page.tags %}
+          &amp;lt;span class=&quot;tag&quot;&amp;gt;{{ tag | capitalize }}&amp;lt;/span&amp;gt;
+        {% endfor %}
+      &amp;lt;/div&amp;gt;
+      &amp;lt;h1 class=&quot;title&quot;&amp;gt;{{ page.title }}&amp;lt;/h1&amp;gt;
+      &amp;lt;p class=&quot;subtitle&quot;&amp;gt;{{ page.date | date: &quot;%b %d, %Y&quot; }}&amp;lt;/p&amp;gt;
+    &amp;lt;/header&amp;gt;
+    &amp;lt;div class=&quot;content&quot;&amp;gt;
+      {{ content }}
+    &amp;lt;/div&amp;gt;
+  &amp;lt;/article&amp;gt;
+&amp;lt;/section&amp;gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;getting-around&quot;&gt;Getting around&lt;/h2&gt;
+
+&lt;p&gt;After our visitor has finished reading, you must be able to feed that voracious appetite with moar delicious content. We’ll need…&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Links to the previous and next articles under the article&lt;/li&gt;
+  &lt;li&gt;The next 5 most recent articles to the right of the article&lt;/li&gt;
+  &lt;li&gt;Redirect category pages&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Ok, so let’s begin with the previous and next links. Jekyll is nice enough to provide us with &lt;code&gt;page.previous&lt;/code&gt; and &lt;code&gt;page.next&lt;/code&gt;. We’ll just need to be careful to check if we’re on the first or last post. In those instances we’ll just say “current page” and display the title as text.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;/src/_includes/prev-next.html&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;
+&amp;lt;div class=&quot;columns is-mobile&quot;&amp;gt;
+  &amp;lt;div class=&quot;column is-6&quot;&amp;gt;
+    {% if page.previous %}
+      &amp;lt;h2&amp;gt;Previous article&amp;lt;/h2&amp;gt;
+      &amp;lt;p&amp;gt;&amp;lt;a href=&quot;{{ page.previous.url | prepend: site.baseurl | prepend: site.url  }}&quot; title=&quot;{{ page.previous.title }}&quot; rel=&quot;prev&quot;&amp;gt;&amp;amp;laquo; {{page.previous.title}}&amp;lt;/a&amp;gt;&amp;lt;/p&amp;gt;
+    {% else %}
+      &amp;lt;h2&amp;gt;Current article&amp;lt;/h2&amp;gt;
+      {{page.title}}
+    {% endif %}
+  &amp;lt;/div&amp;gt;
+  &amp;lt;div class=&quot;column is-6 has-text-right&quot;&amp;gt;
+    {% if page.next %}
+      &amp;lt;h2&amp;gt;Next article&amp;lt;/h2&amp;gt;
+      &amp;lt;a href=&quot;{{ page.next.url | prepend: site.baseurl | prepend: site.url }}&quot; title=&quot;{{ page.next.title }}&quot; rel=&quot;next&quot;&amp;gt;{{page.next.title}} &amp;amp;raquo;&amp;lt;/a&amp;gt;
+    {% else %}
+      &amp;lt;h2&amp;gt;Current article&amp;lt;/h2&amp;gt;
+      {{page.title}}
+    {% endif %}
+  &amp;lt;/div&amp;gt;
+&amp;lt;/div&amp;gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;After saving, include it in &lt;code&gt;src/_layouts/post.html&lt;/code&gt; under the article.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;
+{% include prev-next.html %}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For our last edit to &lt;code&gt;src/_layouts/post.html&lt;/code&gt; we’ll do a quick unordered list to show off the latest articles. Skip the current article.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;
+&amp;lt;ul&amp;gt;
+  {% for article in site.posts limit: 5 %}
+  {% if article.title == page.title %}{% continue %}{% endif %}
+  &amp;lt;li&amp;gt;&amp;lt;a href=&quot;{{ article.url }}&quot;&amp;gt;{{ article.title }}&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;
+  {% endfor %}
+&amp;lt;/ul&amp;gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Finally, if you’ll recall how we setup article urls, each article is behind a category page (ex: /blog/&lt;em style=&quot;color: #ff3860&quot;&gt;category&lt;/em&gt;/article-title). If a lookie-loo were to visit &lt;code&gt;/blog/category/&lt;/code&gt; they would be treated to a generic index page (or perhaps a 404). Building out category pages is certainly on our todo list, but it’s out of scope for this round. Instead, we’re going to use that &lt;code&gt;jekyll-redirect-from&lt;/code&gt; plugin to redirect requests over to &lt;code&gt;/blog/&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Open &lt;code&gt;/src/blog/index.html&lt;/code&gt; and update it’s frontmatter.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;...
+redirect_from:
+  - /blog/site-update/
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For now, we only have one category to redirect. As you add articles with new categories, be sure to come back and update this block. On that note, if you want to create category pages at a later date, you’ll need to delete the relevant lines.&lt;/p&gt;
+
+&lt;h2 id=&quot;final-thoughts&quot;&gt;Final thoughts&lt;/h2&gt;
+
+&lt;p&gt;At last! We can wrap things up with a quick push to our remote repo for a PR.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git add .
+$ git commit -m &quot;Upgrading blog&quot;
+$ git push origin blog
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;At this stage, we’re free to do what we need to do with the home page because we have an awesome new blog page. Not only that but we took the opportunity to give our articles a rudimentary sense of direction.&lt;/p&gt;</content><author><name></name></author><category term="walkthrough" /><category term="jekyll" /><summary type="html">This last one’s about building out the pages for the blog, so that I can use the home page for something else.</summary></entry><entry><title type="html">Getting settled in (part 2)</title><link href="/blog/updates/customize-pt2/" rel="alternate" type="text/html" title="Getting settled in (part 2)" /><published>2018-06-01T00:25:29+00:00</published><updated>2018-06-01T00:25:29+00:00</updated><id>/blog/updates/customize-pt2</id><content type="html" xml:base="/blog/updates/customize-pt2/">&lt;p&gt;In part 2, I’ll be putting everything together to build our new template.&lt;/p&gt;
+
+&lt;p&gt;First, we have to deal with the aftermath of part 1. htmlproofer was bitching to me about SSL connect errors so we need to update &lt;code&gt;.travis.yml&lt;/code&gt; telling travis to rock openSSL instead.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;addons:
+  apt:
+    packages:
+    - libcurl4-openssl-dev
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;…and now back to our regularly scheduled programming…&lt;/p&gt;
+
+&lt;h2 id=&quot;a-new-default&quot;&gt;A new default&lt;/h2&gt;
+
+&lt;p&gt;Because we’re ditching minima, we’re going to need to build out some templates, and drop in our own style. Let’s get started!&lt;/p&gt;
+
+&lt;p&gt;Let’s begin by removing references to minima from &lt;code&gt;_config.yml&lt;/code&gt; and &lt;code&gt;Gemfile&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Update bundler.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ bundle install
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now we can create a stylesheet &lt;code&gt;src/_assets/css/style.scss&lt;/code&gt;. Note the first &lt;code&gt;s&lt;/code&gt; in &lt;code&gt;.scss&lt;/code&gt; which affords us super powers.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@import 'bulma/bulma';
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We’ll be using some javascript soon enough &lt;code&gt;src/_assets/js/main.js&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;//= require jquery/dist/jquery.min.js
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note: back in part 1, we added &lt;code&gt;src/_assets/vendor&lt;/code&gt; to the asset configuration’s &lt;code&gt;source:&lt;/code&gt; list, so in both instances, it knows where to look.&lt;/p&gt;
+
+&lt;p&gt;Finally we’ll create a default layout &lt;code&gt;src/_layouts/default.html&lt;/code&gt; which will act as our base for all the pages.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html lang=&quot;en&quot;&amp;gt;
+  &amp;lt;head&amp;gt;
+    &amp;lt;meta charset=&quot;utf-8&quot;&amp;gt;
+    &amp;lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&amp;gt;
+    &amp;lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&amp;gt;
+    &amp;lt;title&amp;gt;{{ site.title }}&amp;lt;/title&amp;gt;
+    {% asset style.css %}
+    &amp;lt;script defer src=&quot;https://use.fontawesome.com/releases/v5.0.6/js/all.js&quot;&amp;gt;&amp;lt;/script&amp;gt;
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;h1 class=&quot;title is-1 has-text-centered&quot;&amp;gt;{{ site. title }}&amp;lt;/h1&amp;gt;
+    {{ content }}
+    {% asset main.js %}
+  &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;moving-right-along&quot;&gt;Moving right along&lt;/h2&gt;
+
+&lt;p&gt;Jekyll leads you on with “post”, “page”, and “home” layouts by default, which sorta makes sense, so I’m gonna go with it.&lt;/p&gt;
+
+&lt;p&gt;Let’s work on that, starting with &lt;code&gt;src/_layouts/home.html&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;---
+layout: default
+---
+&amp;lt;section class=&quot;section&quot;&amp;gt;
+  &amp;lt;div class=&quot;container&quot;&amp;gt;
+    &amp;lt;div class=&quot;content&quot;&amp;gt;
+      {{ content }}
+      {%- if site.posts.size &amp;gt; 0 -%}
+          {%- for post in site.posts -%}
+          &amp;lt;div class=&quot;box&quot;&amp;gt;
+            &amp;lt;p class=&quot;title is-3&quot;&amp;gt;&amp;lt;a href=&quot;{{ post.url | relative_url }}&quot;&amp;gt;{{ post.title | escape }}&amp;lt;/a&amp;gt;&amp;lt;/p&amp;gt;
+            &amp;lt;p class=&quot;subtitle is-5&quot;&amp;gt;{{ post.date | date: &quot;%b %-d, %Y&quot; }}&amp;lt;/p&amp;gt;
+            {{ post.excerpt }}
+          &amp;lt;/div&amp;gt;
+          {%- endfor -%}
+        &amp;lt;p&amp;gt;subscribe &amp;lt;a href=&quot;{{ &quot;/feed.xml&quot; | relative_url }}&quot;&amp;gt;via RSS&amp;lt;/a&amp;gt;&amp;lt;/p&amp;gt;
+      {%- endif -%}
+    &amp;lt;/div&amp;gt;
+  &amp;lt;/div&amp;gt;
+&amp;lt;/section&amp;gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will be the home page which will just loop through all of the posts and call it a day.&lt;/p&gt;
+
+&lt;p&gt;Now let’s move on to &lt;code&gt;src/_layouts/post.html&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;---
+layout: default
+---
+&amp;lt;section class=&quot;section&quot;&amp;gt;
+  &amp;lt;div class=&quot;container&quot;&amp;gt;
+    &amp;lt;article class=&quot;content&quot;&amp;gt;
+      &amp;lt;h1 class=&quot;title is-3&quot;&amp;gt;{{ page.title }}&amp;lt;/h1&amp;gt;
+      &amp;lt;p class=&quot;subtitle is-5&quot;&amp;gt;{{ page.date | date: &quot;%b %-d, %Y&quot; }}&amp;lt;/p&amp;gt;
+      {{ content }}
+    &amp;lt;/article&amp;gt;
+  &amp;lt;/div&amp;gt;
+&amp;lt;/section&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;src/_layouts/page.html&lt;/code&gt; is basically the same, but instead of an article tag, we’re just using another div.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;---
+layout: default
+---
+&amp;lt;section class=&quot;section&quot;&amp;gt;
+  &amp;lt;div class=&quot;container&quot;&amp;gt;
+    &amp;lt;div class=&quot;content&quot;&amp;gt;
+      {{ content }}
+    &amp;lt;/div&amp;gt;
+  &amp;lt;/div&amp;gt;
+&amp;lt;/section&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;At last, to end this 2-parter, I’m finally gonna get personal with &lt;code&gt;_config.yml&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;title: burden.cc
+email: your-email@example.com
+description: Sometimes weird; occasionally unfiltered-- almost certainly not untrue.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You’ll want to replace those values with your own. Let’s do what we do, and finally turn our attention to that blog.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git add .
+$ git commit -m &quot;Adding customize post pt2&quot;
+$ git push origin ci
+&lt;/code&gt;&lt;/pre&gt;</content><author><name></name></author><category term="walkthrough" /><category term="jekyll" /><summary type="html">In part 2, I’ll be putting everything together to build our new template.</summary></entry><entry><title type="html">Getting settled in (part 1)</title><link href="/blog/updates/customize-pt1/" rel="alternate" type="text/html" title="Getting settled in (part 1)" /><published>2018-05-31T21:50:28+00:00</published><updated>2018-05-31T21:50:28+00:00</updated><id>/blog/updates/customize-pt1</id><content type="html" xml:base="/blog/updates/customize-pt1/">&lt;p&gt;Up until I finish these “Getting settled in” posts, the site is using a boring old default minima theme. It’s actually really well rounded, but me being me, I can’t live with default.&lt;/p&gt;
+
+&lt;p&gt;As usual, we’ll start the post with a new branch.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git checkout -b assets
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;dependencies&quot;&gt;Dependencies&lt;/h2&gt;
+
+&lt;p&gt;For part 1 of &lt;em&gt;this&lt;/em&gt; part of &lt;em&gt;this&lt;/em&gt; “Let’s start from scratch” series, we’re finally getting around to installing asset dependencies with the help of &lt;a href=&quot;https://bower.io&quot;&gt;Bower&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;No site is complete without &lt;code&gt;jquery&lt;/code&gt;, and for prettys I am ditching &lt;code&gt;bourbon&lt;/code&gt; in favor of &lt;code&gt;bulma&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;First we’ll create a &lt;code&gt;.bowerrc&lt;/code&gt; file that disables usage statistics, and tells Bower where to save the dependencies.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+    &quot;analytics&quot;: false,
+    &quot;directory&quot;: &quot;src/_assets/vendor&quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then we’ll initialize the &lt;code&gt;bower.json&lt;/code&gt; file. Get ready to answer some questions.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ bower init
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Install &lt;code&gt;jquery&lt;/code&gt; and &lt;code&gt;bulma&lt;/code&gt; which creates the &lt;code&gt;src/_assets/vendor&lt;/code&gt; directory. On a side note, we’ll be in that &lt;code&gt;src/_assets/&lt;/code&gt; directory a &lt;em&gt;whole&lt;/em&gt; bunch.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ bower install --save &amp;lt;package&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Let’s scope out &lt;code&gt;bower.json&lt;/code&gt; real quick.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+  &quot;name&quot;: &quot;burdendotcc&quot;,
+  &quot;authors&quot;: [
+    &quot;burden &amp;lt;burden@burden.cc&amp;gt;&quot;
+  ],
+  &quot;description&quot;: &quot;&quot;,
+  &quot;main&quot;: &quot;&quot;,
+  &quot;license&quot;: &quot;&quot;,
+  &quot;homepage&quot;: &quot;burden.cc&quot;,
+  &quot;ignore&quot;: [
+    &quot;**/.*&quot;,
+    &quot;node_modules&quot;,
+    &quot;bower_components&quot;,
+    &quot;src/_assets/vendor&quot;,
+    &quot;test&quot;,
+    &quot;tests&quot;
+  ],
+  &quot;dependencies&quot;: {
+    &quot;jquery&quot;: &quot;^3.2.1&quot;,
+    &quot;bulma&quot;: &quot;^0.7.1&quot;
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Update &lt;code&gt;.gitignore&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;www
+src/_assets/vendor
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Add an &lt;code&gt;assets:&lt;/code&gt; section to &lt;code&gt;_config.yml&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;destination: www
+assets:
+  sources:
+  - _assets/vendor
+  digest: true
+  compression: true
+  gzip: false
+  defaults:
+    js: { integrity: false } # true on JEKYLL_ENV=production
+    css: { integrity: false } # true on JEKYLL_ENV=production
+    img: { integrity: false } # true on JEKYLL_ENV=production
+  compress:
+    css: false
+    js: uglifier
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Wrapping everything up, we need to make a quick addition to
+&lt;code&gt;.travis.yml&lt;/code&gt;, telling it to do the bower thing before building.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;before_script:
+  - npm install -g bower
+  - bower install
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;At this stage, we’re not doing anything with the dependencies yet. Next time around, we’ll do something about that. Let’s commit and move on.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git add .
+$ git commit -m &quot;Adding customize post pt1&quot;
+&lt;/code&gt;&lt;/pre&gt;</content><author><name></name></author><category term="walkthrough" /><category term="jekyll" /><summary type="html">Up until I finish these “Getting settled in” posts, the site is using a boring old default minima theme. It’s actually really well rounded, but me being me, I can’t live with default.</summary></entry><entry><title type="html">Continuous Integration, testing and staging</title><link href="/blog/updates/stage/" rel="alternate" type="text/html" title="Continuous Integration, testing and staging" /><published>2018-05-30T21:59:58+00:00</published><updated>2018-05-30T21:59:58+00:00</updated><id>/blog/updates/stage</id><content type="html" xml:base="/blog/updates/stage/">&lt;p&gt;This round, we’re going to be getting Travis-CI talking to Github so that we can&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Build the site on a vm&lt;/li&gt;
+  &lt;li&gt;Run tests on vm&lt;/li&gt;
+  &lt;li&gt;Upon success, save build to gh-pages branch&lt;/li&gt;
+  &lt;li&gt;Push gh-pages branch to Github&lt;/li&gt;
+  &lt;li&gt;Point DNS to Github Pages&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;To get started, sign up for an account at Travis-CI by linking your Github account. Then link your &lt;code&gt;burdendotcc&lt;/code&gt; repository.&lt;/p&gt;
+
+&lt;h2 id=&quot;continuous-integration&quot;&gt;Continuous Integration&lt;/h2&gt;
+
+&lt;p&gt;To begin most tasks, it’s usually good practice to branch from master.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git checkout -b ci
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Update the &lt;code&gt;Gemfile&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;gem &quot;minima&quot;, &quot;~&amp;gt; 2.0&quot;
+gem &quot;html-proofer&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;As you can see, We’ve adopted html-proofer for a basic test as per Jekyll’s recommendation. This thing checks HTML best practices, then verifies that images and links work. That will come in handy when we need to verify that all of our assets were compiled and linked correctly.&lt;/p&gt;
+
+&lt;p&gt;Update bundler&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ bundle install
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Create a new file &lt;code&gt;.travis.yml&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;language: ruby
+rvm:
+  - 2.4.2
+script:
+  - bundle exec jekyll build
+  - bundle exec htmlproofer ./www
+env:
+  global:
+    - NOKOGIRI_USE_SYSTEM_LIBRARIES=true # speeds up installation of html-proofer
+sudo: false # route your build to the container-based infrastructure for a faster build
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note: When Travis builds our project, it saves gems in a &lt;code&gt;vendor&lt;/code&gt; directory. Since we have our source files in &lt;code&gt;src&lt;/code&gt;, there’s nothing to stress about.&lt;/p&gt;
+
+&lt;h2 id=&quot;staging&quot;&gt;Staging&lt;/h2&gt;
+
+&lt;p&gt;So with regards to a work flow, we’re going to utilize Github’s Pull Request feature to trigger a build, then deploy to Github Pages for a stage. Some day we’ll use a merge to the master branch to trigger a production deploy, but that won’t be covered in this walkthrough.&lt;/p&gt;
+
+&lt;p&gt;First we need to &lt;a href=&quot;https://help.github.com/articles/setting-up-a-www-subdomain/&quot;&gt;setup a CNAME&lt;/a&gt; on the DNS server pointing to &lt;code&gt;burden.github.io&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Next create a file named &lt;code&gt;CNAME&lt;/code&gt; and save it in the &lt;code&gt;src&lt;/code&gt; dir.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;stage.burden.cc
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Finally we must update &lt;code&gt;_config.yml&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;include:
+  - CNAME
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Moving along, we need to generate a &lt;a href=&quot;https://github.com/settings/tokens&quot;&gt;Personal Access Token&lt;/a&gt; from Github. The only scope needed is repo:public&lt;em&gt;repo. _Be sure to note down the token, because you’ll only be shown that shit once and Travis is going to hide it from you later&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Over in settings on Travis, set an environment variable.&lt;/p&gt;
+
+&lt;p&gt;It is &lt;em&gt;critical&lt;/em&gt; to make sure that the &lt;code&gt;Display value in build log&lt;/code&gt; toggle is set to &lt;code&gt;Off&lt;/code&gt;!&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;GITHUB_API=&amp;lt;token&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;While we’re in the settings let’s toggle off the &lt;code&gt;Build pushed branches&lt;/code&gt; option, since that is not necessarily inline with our proposed workflow. No need to overwork Travis.&lt;/p&gt;
+
+&lt;p&gt;Finally we get to adding onto &lt;code&gt;.travis.yml&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;after_success: |
+  if [ -n &quot;$GITHUB_API&quot; ]; then
+    cd &quot;$TRAVIS_BUILD_DIR/www&quot;
+    git init
+    git checkout --orphan gh-pages
+    git add .
+    git status
+    git -c user.name='travis' -c user.email='auto@travis-ci.org' commit -m stage
+    # Make sure to make the output quiet, or else the API token will leak!
+    # This works because the API key can replace your password.
+    git push -f -q https://burden:$GITHUB_API@github.com/burden/burdendotcc gh-pages &amp;amp;2&amp;gt;/dev/null
+    cd &quot;$TRAVIS_BUILD_DIR&quot;
+  fi
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Let’s wrap things up with a quick push to our remote repo.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git add .
+$ git commit -m &quot;Adding ci post&quot;
+$ git push origin ci
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;At this point, all we need to get the build party started is a pull request on Github.&lt;/p&gt;
+
+&lt;p&gt;After you create your pull request, you can then scope out the action on the dashboard at &lt;a href=&quot;https://travis-ci.org&quot;&gt;travis-ci&lt;/a&gt;. If all goes well, you can then hit up your stage &lt;a href=&quot;https://stage.burden.cc&quot;&gt;stage.burden.cc&lt;/a&gt;&lt;/p&gt;</content><author><name></name></author><category term="walkthrough" /><category term="jekyll" /><summary type="html">This round, we’re going to be getting Travis-CI talking to Github so that we can</summary></entry><entry><title type="html">Welcome to another burden.cc</title><link href="/blog/updates/welcome/" rel="alternate" type="text/html" title="Welcome to another burden.cc" /><published>2018-05-25T21:59:58+00:00</published><updated>2018-05-25T21:59:58+00:00</updated><id>/blog/updates/welcome</id><content type="html" xml:base="/blog/updates/welcome/">&lt;p&gt;Welcome to another edition of “Let’s start from scratch”. Get a beer, because this time around there’s examples so you can follow along.&lt;/p&gt;
+
+&lt;p&gt;In this series of blog posts, we’ll build a Jekyll blog from scratch and use Github Pages as a stage. If you follow along, please be sure to switch out values for your own.&lt;/p&gt;
+
+&lt;p&gt;First we need to make sure Jekyll is installed…&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ gem install jekyll
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;moving-in&quot;&gt;Moving in&lt;/h2&gt;
+
+&lt;p&gt;I’m starting with a clean git repository so I can take full advantage of Github. Scope it out: &lt;a href=&quot;https://github.com/burden/burdendotcc&quot;&gt;burden/burdendotcc&lt;/a&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ jekyll new burdendotcc
+$ cd burdendotcc
+$ git init
+$ git add .
+$ git commit -m “Initial commit”
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Next we’ll lock in Ruby version &lt;code&gt;2.5.3&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ echo 2.5.3 &amp;gt; .ruby-version
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Tell &lt;code&gt;Gemfile&lt;/code&gt; about it by adding a line after &lt;code&gt;source&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;source &quot;https://rubygems.org&quot;
+ruby RUBY_VERSION
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now for some plugins…&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/envygeeks/jekyll-assets&quot;&gt;jekyll-assets&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/gettalong/kramdown&quot;&gt;kramdown&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/lautis/uglifier&quot;&gt;uglifier&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Update the &lt;code&gt;:jekyll_plugins&lt;/code&gt; block in &lt;code&gt;Gemfile&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;group :jekyll_plugins do
+  gem &quot;jekyll-feed&quot;, &quot;~&amp;gt; 0.6&quot;
+  gem &quot;jekyll-assets&quot;
+  gem &quot;kramdown&quot;
+  gem &quot;uglifier&quot;, &quot;~&amp;gt; 3.2&quot;
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Update the &lt;code&gt;plugins&lt;/code&gt; block in &lt;code&gt;_config.yml&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;plugins:
+  - jekyll-feed
+  - jekyll-assets
+  - kramdown
+  - uglifier
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Setup Bundler and install the plugins.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ gem install bundler
+$ bundle install
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now we can get that asset pipeline going. Configure &lt;code&gt;jekyll-assets&lt;/code&gt; by adding some lines to &lt;code&gt;_config.yml&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;assets:
+  sources:
+  - _assets/vendor # for dependencies
+  digest: true # cache busting
+  compression: true # remove whitespace from css and js
+  defaults:
+    js: { integrity: false } # true on JEKYLL_ENV=production
+    css: { integrity: false } # true on JEKYLL_ENV=production
+    img: { integrity: false } # true on JEKYLL_ENV=production
+  compress:
+    css: true
+    js: uglifier
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Tell &lt;code&gt;.gitignore&lt;/code&gt; not to commit the asset cache&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;.jekyll-metadata
+.jekyll-cache
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;When building the site, Jekyll makes you choose whether to A) maintain a black list of files to exclude or B) specify a source directory. I find it to be more organized, safer, and overall much easier to just specify a source directory.&lt;/p&gt;
+
+&lt;p&gt;I also like switching the destination directory from &lt;code&gt;_sites&lt;/code&gt; to &lt;code&gt;www&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Tell &lt;code&gt;.gitignore&lt;/code&gt; not to commit the destination directory.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;.asset-cache
+www
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Add the following under &lt;code&gt;# Build settings&lt;/code&gt; in &lt;code&gt;_config.yml&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# Build settings
+source: src
+destination: www
+markdown: kramdown
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Move all of the files.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ mkdir src
+$ mv index.md about.md 404.html _posts src
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Finally we fire up that welcome page.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ bundle exec jekyll serve
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Save our progress and push the project files to the &lt;code&gt;master&lt;/code&gt; branch on Github.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git add .
+$ git commit -m &quot;Adding welcome post&quot;
+$ git remote add origin git@github.com:burden/burdendotcc.git
+$ git push -u origin master
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In the next post we’ll setup Github Pages to use as a stage.&lt;/p&gt;</content><author><name></name></author><category term="walkthrough" /><category term="jekyll" /><summary type="html">Welcome to another edition of “Let’s start from scratch”. Get a beer, because this time around there’s examples so you can follow along.</summary></entry></feed>

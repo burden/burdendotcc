@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="contact" data-encoded="K1@CEzmD8.uu" data-key="PDjVWvBdECAURGxYo96mqHJ73T5M1Qt4pw0ZNrhOLsflnicFazgeSIyX8Kubk2">
+    <title>Welcome to another burden.cc | burden.cc</title>
+    <link rel="stylesheet" type="text/css" href="/assets/style-d697eee753076c1efe73d1ff75c4854b1d90dd4b543213ab7385af785ef71d5e.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+  </head>
+  <body>
+    <nav class="navbar is-primary" role="navigation" aria-label="main navigation"><div class="container">
+  <div class="navbar-brand" role="navigation" aria-label="main navigation">
+    <div class="navbar-item is-hidden-desktop"><span class="title is-6 has-text-white-ter">burden.cc</span></div>
+    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div class="navbar-menu" id="navbarBasicExample">
+    <div class="navbar-centered">
+      <a class="navbar-item" href="/">
+        <span class="icon"> <i class="fas fa-home"></i> </span>
+      </a>
+
+      <a class="navbar-item has-text-weight-semibold" href="/blog">Blog</a>
+    </div>
+  </div>
+</div>
+</nav>
+<section class="section section-normalize section-blog-post">
+  <article class="container">
+    <header class="header has-text-centered">
+      <div class="tags is-centered">
+         <span class="tag is-size-7 is-primary has-text-weight-bold">Walkthrough</span>  <span class="tag is-size-7 is-primary has-text-weight-bold">Jekyll</span> 
+      </div>
+      <h1 class="title is-1 has-text-weight-semibold">Welcome to another burden.cc</h1>
+       
+      <p class="subtitle is-6">May 25, 2018 &middot; 2 min</p>
+    </header>
+    <div class="columns is-desktop">
+      <div class="column column-post-left is-9-desktop">
+        <div class="content has-text-weight-normal"><p>Welcome to another edition of “Let’s start from scratch”. Get a beer, because this time around there’s examples so you can follow along.</p>
+
+<p>In this series of blog posts, we’ll build a Jekyll blog from scratch and use Github Pages as a stage. If you follow along, please be sure to switch out values for your own.</p>
+
+<p>First we need to make sure Jekyll is installed…</p>
+
+<pre><code>$ gem install jekyll
+</code></pre>
+
+<h2 id="moving-in">Moving in</h2>
+
+<p>I’m starting with a clean git repository so I can take full advantage of Github. Scope it out: <a href="https://github.com/burden/burdendotcc">burden/burdendotcc</a>.</p>
+
+<pre><code>$ jekyll new burdendotcc
+$ cd burdendotcc
+$ git init
+$ git add .
+$ git commit -m “Initial commit”
+</code></pre>
+
+<p>Next we’ll lock in Ruby version <code>2.5.3</code>.</p>
+
+<pre><code>$ echo 2.5.3 &gt; .ruby-version
+</code></pre>
+
+<p>Tell <code>Gemfile</code> about it by adding a line after <code>source</code>.</p>
+
+<pre><code>source "https://rubygems.org"
+ruby RUBY_VERSION
+</code></pre>
+
+<p>Now for some plugins…</p>
+
+<ul>
+  <li><a href="https://github.com/envygeeks/jekyll-assets">jekyll-assets</a></li>
+  <li><a href="https://github.com/gettalong/kramdown">kramdown</a></li>
+  <li><a href="https://github.com/lautis/uglifier">uglifier</a></li>
+</ul>
+
+<p>Update the <code>:jekyll_plugins</code> block in <code>Gemfile</code>.</p>
+
+<pre><code>group :jekyll_plugins do
+  gem "jekyll-feed", "~&gt; 0.6"
+  gem "jekyll-assets"
+  gem "kramdown"
+  gem "uglifier", "~&gt; 3.2"
+end
+</code></pre>
+
+<p>Update the <code>plugins</code> block in <code>_config.yml</code>.</p>
+
+<pre><code>plugins:
+  - jekyll-feed
+  - jekyll-assets
+  - kramdown
+  - uglifier
+</code></pre>
+
+<p>Setup Bundler and install the plugins.</p>
+
+<pre><code>$ gem install bundler
+$ bundle install
+</code></pre>
+
+<p>Now we can get that asset pipeline going. Configure <code>jekyll-assets</code> by adding some lines to <code>_config.yml</code></p>
+
+<pre><code>assets:
+  sources:
+  - _assets/vendor # for dependencies
+  digest: true # cache busting
+  compression: true # remove whitespace from css and js
+  defaults:
+    js: { integrity: false } # true on JEKYLL_ENV=production
+    css: { integrity: false } # true on JEKYLL_ENV=production
+    img: { integrity: false } # true on JEKYLL_ENV=production
+  compress:
+    css: true
+    js: uglifier
+</code></pre>
+
+<p>Tell <code>.gitignore</code> not to commit the asset cache</p>
+
+<pre><code>.jekyll-metadata
+.jekyll-cache
+</code></pre>
+
+<p>When building the site, Jekyll makes you choose whether to A) maintain a black list of files to exclude or B) specify a source directory. I find it to be more organized, safer, and overall much easier to just specify a source directory.</p>
+
+<p>I also like switching the destination directory from <code>_sites</code> to <code>www</code>.</p>
+
+<p>Tell <code>.gitignore</code> not to commit the destination directory.</p>
+
+<pre><code>.asset-cache
+www
+</code></pre>
+
+<p>Add the following under <code># Build settings</code> in <code>_config.yml</code></p>
+
+<pre><code># Build settings
+source: src
+destination: www
+markdown: kramdown
+</code></pre>
+
+<p>Move all of the files.</p>
+
+<pre><code>$ mkdir src
+$ mv index.md about.md 404.html _posts src
+</code></pre>
+
+<p>Finally we fire up that welcome page.</p>
+
+<pre><code>$ bundle exec jekyll serve
+</code></pre>
+
+<p>Save our progress and push the project files to the <code>master</code> branch on Github.</p>
+
+<pre><code>$ git add .
+$ git commit -m "Adding welcome post"
+$ git remote add origin git@github.com:burden/burdendotcc.git
+$ git push -u origin master
+</code></pre>
+
+<p>In the next post we’ll setup Github Pages to use as a stage.</p>
+</div>
+        <section class="section section-normalize">
+  <div class="columns is-mobile prev-next">
+    <div class="column is-6">
+      
+        <h2 class="title is-7 has-text-grey-light">Current article</h2>
+        <p class="has-text-weight-semibold">Welcome to another burden.cc</p>
+      
+    </div>
+    <div class="column is-6 has-text-right">
+      
+        <h2 class="title is-7 has-text-grey-light">Next article</h2>
+        <p class="has-text-weight-semibold"><a href="/blog/updates/stage/" title="Continuous Integration, testing and staging" rel="next">Continuous Integration, testing and staging &raquo;</a></p>
+      
+    </div>
+  </div>
+</section>
+
+
+      </div>
+      <div class="column column-post-right is-3-desktop">
+        <div class="columns is-multiline">
+          <div class="column is-12-desktop is-12-tablet">
+            <div class="box">
+              <h2 class="title has-text-centered is-5 gumby gumbito">Latest Articles</h2>
+              <ul class="has-text-centered-mobile latest">
+                 
+                <li>
+                  <a class="is-size-6" href="/blog/updates/launch-notes/">Launch notes 🎉</a>
+                </li>
+                 
+                <li>
+                  <a class="is-size-6" href="/blog/updates/a-real-hullabaloo/">Preparing for a real hullabaloo</a>
+                </li>
+                 
+                <li>
+                  <a class="is-size-6" href="/blog/updates/customize-pt2/">Getting settled in (part 2)</a>
+                </li>
+                 
+                <li>
+                  <a class="is-size-6" href="/blog/updates/customize-pt1/">Getting settled in (part 1)</a>
+                </li>
+                 
+                <li>
+                  <a class="is-size-6" href="/blog/updates/stage/">Continuous Integration, testing and staging</a>
+                </li>
+                
+              </ul>
+            </div>
+          </div>
+          <div class="column is-12-desktop is-6-tablet">
+            <div class="box">
+              <h2 class="title has-text-centered is-5 gumby gumbito">Topics</h2>
+              <ul class="has-text-centered-mobile">
+                
+                <li>updates</li>
+                
+              </ul>
+            </div>
+          </div>
+          <div class="column is-12-desktop is-6-tablet">
+            <div class="box">
+              <h2 class="title has-text-centered is-5 gumby gumbito">Tags</h2>
+               
+              <div class="tags is-centered">
+                 <span class="tag tag5 is-primary has-text-weight-bold">Jekyll</span>  <span class="tag tag5 is-primary has-text-weight-bold">Walkthrough</span> 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /columns -->
+  </article>
+</section>
+
+    <footer class="footer has-text-weight-light">
+  <div class="container">
+    <div class="content has-text-centered">
+      <p class="is-size-6"><a href="/">Home</a> &middot <a href="/blog">Blog</a></p>
+      <p class="social-stacks">
+  <a href="/feed.xml" target="_blank">
+    <span class="icon is-medium">
+      <span class="fa-stack">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+      </span>
+    </span>
+  </a>
+  <a class="has-secret-mailto" target="_blank">
+    <span class="icon is-medium">
+      <span class="fa-stack">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+      </span>
+    </span>
+  </a>
+  <a href="https://keybase.io/burden" target="_blank">
+    <span class="icon is-medium">
+      <span class="fa-stack">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-key fa-stack-1x fa-inverse"></i>
+      </span>
+    </span>
+  </a>
+  <a href="https://github.com/burden" target="_blank">
+    <span class="icon is-medium">
+      <span class="fa-stack">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-github-alt fa-stack-1x fa-inverse"></i>
+      </span>
+    </span>
+  </a>
+  <a href="https://twitter.com/cheapexcitement" target="_blank">
+    <span class="icon is-medium">
+      <span class="fa-stack">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+      </span>
+    </span>
+  </a>
+</p>
+      <p class="is-size-7">Website maintained by <a href="https://github.com/burden">@burden</a><br />The contents of this website are &copy; 2019 under the terms of the MIT License.</p>
+      <p>
+        <a href="https://github.com/burden/burdendotcc" class="button is-outlined is-small"
+          ><span>view source</span><span class="icon"><i class="fab fa-github"></i></span
+        ></a>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    <script src="/assets/main-402a8c9e8d6384d57942e24ae6f3449b4ff58cf086c0b9174cb05c282ce50b92.js" type="text/javascript"></script>
+  </body>
+</html>
+

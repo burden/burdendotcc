@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="contact" data-encoded="K1@CEzmD8.uu" data-key="PDjVWvBdECAURGxYo96mqHJ73T5M1Qt4pw0ZNrhOLsflnicFazgeSIyX8Kubk2">
+    <title>Continuous Integration, testing and staging | burden.cc</title>
+    <link rel="stylesheet" type="text/css" href="/assets/style-d697eee753076c1efe73d1ff75c4854b1d90dd4b543213ab7385af785ef71d5e.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+  </head>
+  <body>
+    <nav class="navbar is-primary" role="navigation" aria-label="main navigation"><div class="container">
+  <div class="navbar-brand" role="navigation" aria-label="main navigation">
+    <div class="navbar-item is-hidden-desktop"><span class="title is-6 has-text-white-ter">burden.cc</span></div>
+    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <span aria-hidden="true"></span> <span aria-hidden="true"></span> <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div class="navbar-menu" id="navbarBasicExample">
+    <div class="navbar-centered">
+      <a class="navbar-item" href="/">
+        <span class="icon"> <i class="fas fa-home"></i> </span>
+      </a>
+
+      <a class="navbar-item has-text-weight-semibold" href="/blog">Blog</a>
+    </div>
+  </div>
+</div>
+</nav>
+<section class="section section-normalize section-blog-post">
+  <article class="container">
+    <header class="header has-text-centered">
+      <div class="tags is-centered">
+         <span class="tag is-size-7 is-primary has-text-weight-bold">Walkthrough</span>  <span class="tag is-size-7 is-primary has-text-weight-bold">Jekyll</span> 
+      </div>
+      <h1 class="title is-1 has-text-weight-semibold">Continuous Integration, testing and staging</h1>
+       
+      <p class="subtitle is-6">May 30, 2018 &middot; 3 min</p>
+    </header>
+    <div class="columns is-desktop">
+      <div class="column column-post-left is-9-desktop">
+        <div class="content has-text-weight-normal"><p>This round, we’re going to be getting Travis-CI talking to Github so that we can</p>
+
+<ol>
+  <li>Build the site on a vm</li>
+  <li>Run tests on vm</li>
+  <li>Upon success, save build to gh-pages branch</li>
+  <li>Push gh-pages branch to Github</li>
+  <li>Point DNS to Github Pages</li>
+</ol>
+
+<p>To get started, sign up for an account at Travis-CI by linking your Github account. Then link your <code>burdendotcc</code> repository.</p>
+
+<h2 id="continuous-integration">Continuous Integration</h2>
+
+<p>To begin most tasks, it’s usually good practice to branch from master.</p>
+
+<pre><code>$ git checkout -b ci
+</code></pre>
+
+<p>Update the <code>Gemfile</code></p>
+
+<pre><code>gem "minima", "~&gt; 2.0"
+gem "html-proofer"
+</code></pre>
+
+<p>As you can see, We’ve adopted html-proofer for a basic test as per Jekyll’s recommendation. This thing checks HTML best practices, then verifies that images and links work. That will come in handy when we need to verify that all of our assets were compiled and linked correctly.</p>
+
+<p>Update bundler</p>
+
+<pre><code>$ bundle install
+</code></pre>
+
+<p>Create a new file <code>.travis.yml</code></p>
+
+<pre><code>language: ruby
+rvm:
+  - 2.4.2
+script:
+  - bundle exec jekyll build
+  - bundle exec htmlproofer ./www
+env:
+  global:
+    - NOKOGIRI_USE_SYSTEM_LIBRARIES=true # speeds up installation of html-proofer
+sudo: false # route your build to the container-based infrastructure for a faster build
+</code></pre>
+
+<p>Note: When Travis builds our project, it saves gems in a <code>vendor</code> directory. Since we have our source files in <code>src</code>, there’s nothing to stress about.</p>
+
+<h2 id="staging">Staging</h2>
+
+<p>So with regards to a work flow, we’re going to utilize Github’s Pull Request feature to trigger a build, then deploy to Github Pages for a stage. Some day we’ll use a merge to the master branch to trigger a production deploy, but that won’t be covered in this walkthrough.</p>
+
+<p>First we need to <a href="https://help.github.com/articles/setting-up-a-www-subdomain/">setup a CNAME</a> on the DNS server pointing to <code>burden.github.io</code>.</p>
+
+<p>Next create a file named <code>CNAME</code> and save it in the <code>src</code> dir.</p>
+
+<pre><code>stage.burden.cc
+</code></pre>
+
+<p>Finally we must update <code>_config.yml</code></p>
+
+<pre><code>include:
+  - CNAME
+</code></pre>
+
+<p>Moving along, we need to generate a <a href="https://github.com/settings/tokens">Personal Access Token</a> from Github. The only scope needed is repo:public<em>repo. _Be sure to note down the token, because you’ll only be shown that shit once and Travis is going to hide it from you later</em></p>
+
+<p>Over in settings on Travis, set an environment variable.</p>
+
+<p>It is <em>critical</em> to make sure that the <code>Display value in build log</code> toggle is set to <code>Off</code>!</p>
+
+<pre><code>GITHUB_API=&lt;token&gt;
+</code></pre>
+
+<p>While we’re in the settings let’s toggle off the <code>Build pushed branches</code> option, since that is not necessarily inline with our proposed workflow. No need to overwork Travis.</p>
+
+<p>Finally we get to adding onto <code>.travis.yml</code></p>
+
+<pre><code>after_success: |
+  if [ -n "$GITHUB_API" ]; then
+    cd "$TRAVIS_BUILD_DIR/www"
+    git init
+    git checkout --orphan gh-pages
+    git add .
+    git status
+    git -c user.name='travis' -c user.email='auto@travis-ci.org' commit -m stage
+    # Make sure to make the output quiet, or else the API token will leak!
+    # This works because the API key can replace your password.
+    git push -f -q https://burden:$GITHUB_API@github.com/burden/burdendotcc gh-pages &amp;2&gt;/dev/null
+    cd "$TRAVIS_BUILD_DIR"
+  fi
+</code></pre>
+
+<p>Let’s wrap things up with a quick push to our remote repo.</p>
+
+<pre><code>$ git add .
+$ git commit -m "Adding ci post"
+$ git push origin ci
+</code></pre>
+
+<p>At this point, all we need to get the build party started is a pull request on Github.</p>
+
+<p>After you create your pull request, you can then scope out the action on the dashboard at <a href="https://travis-ci.org">travis-ci</a>. If all goes well, you can then hit up your stage <a href="https://stage.burden.cc">stage.burden.cc</a></p>
+</div>
+        <section class="section section-normalize">
+  <div class="columns is-mobile prev-next">
+    <div class="column is-6">
+      
+        <h2 class="title is-7 has-text-grey-light">Previous article</h2>
+        <p class="has-text-weight-semibold"><a href="/blog/updates/welcome/" title="Welcome to another burden.cc" rel="prev">&laquo; Welcome to another burden.cc</a></p>
+      
+    </div>
+    <div class="column is-6 has-text-right">
+      
+        <h2 class="title is-7 has-text-grey-light">Next article</h2>
+        <p class="has-text-weight-semibold"><a href="/blog/updates/customize-pt1/" title="Getting settled in (part 1)" rel="next">Getting settled in (part 1) &raquo;</a></p>
+      
+    </div>
+  </div>
+</section>
+
+
+      </div>
+      <div class="column column-post-right is-3-desktop">
+        <div class="columns is-multiline">
+          <div class="column is-12-desktop is-12-tablet">
+            <div class="box">
+              <h2 class="title has-text-centered is-5 gumby gumbito">Latest Articles</h2>
+              <ul class="has-text-centered-mobile latest">
+                 
+                <li>
+                  <a class="is-size-6" href="/blog/updates/launch-notes/">Launch notes 🎉</a>
+                </li>
+                 
+                <li>
+                  <a class="is-size-6" href="/blog/updates/a-real-hullabaloo/">Preparing for a real hullabaloo</a>
+                </li>
+                 
+                <li>
+                  <a class="is-size-6" href="/blog/updates/customize-pt2/">Getting settled in (part 2)</a>
+                </li>
+                 
+                <li>
+                  <a class="is-size-6" href="/blog/updates/customize-pt1/">Getting settled in (part 1)</a>
+                </li>
+                 
+              </ul>
+            </div>
+          </div>
+          <div class="column is-12-desktop is-6-tablet">
+            <div class="box">
+              <h2 class="title has-text-centered is-5 gumby gumbito">Topics</h2>
+              <ul class="has-text-centered-mobile">
+                
+                <li>updates</li>
+                
+              </ul>
+            </div>
+          </div>
+          <div class="column is-12-desktop is-6-tablet">
+            <div class="box">
+              <h2 class="title has-text-centered is-5 gumby gumbito">Tags</h2>
+               
+              <div class="tags is-centered">
+                 <span class="tag tag5 is-primary has-text-weight-bold">Jekyll</span>  <span class="tag tag5 is-primary has-text-weight-bold">Walkthrough</span> 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /columns -->
+  </article>
+</section>
+
+    <footer class="footer has-text-weight-light">
+  <div class="container">
+    <div class="content has-text-centered">
+      <p class="is-size-6"><a href="/">Home</a> &middot <a href="/blog">Blog</a></p>
+      <p class="social-stacks">
+  <a href="/feed.xml" target="_blank">
+    <span class="icon is-medium">
+      <span class="fa-stack">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+      </span>
+    </span>
+  </a>
+  <a class="has-secret-mailto" target="_blank">
+    <span class="icon is-medium">
+      <span class="fa-stack">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+      </span>
+    </span>
+  </a>
+  <a href="https://keybase.io/burden" target="_blank">
+    <span class="icon is-medium">
+      <span class="fa-stack">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-key fa-stack-1x fa-inverse"></i>
+      </span>
+    </span>
+  </a>
+  <a href="https://github.com/burden" target="_blank">
+    <span class="icon is-medium">
+      <span class="fa-stack">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-github-alt fa-stack-1x fa-inverse"></i>
+      </span>
+    </span>
+  </a>
+  <a href="https://twitter.com/cheapexcitement" target="_blank">
+    <span class="icon is-medium">
+      <span class="fa-stack">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+      </span>
+    </span>
+  </a>
+</p>
+      <p class="is-size-7">Website maintained by <a href="https://github.com/burden">@burden</a><br />The contents of this website are &copy; 2019 under the terms of the MIT License.</p>
+      <p>
+        <a href="https://github.com/burden/burdendotcc" class="button is-outlined is-small"
+          ><span>view source</span><span class="icon"><i class="fab fa-github"></i></span
+        ></a>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    <script src="/assets/main-402a8c9e8d6384d57942e24ae6f3449b4ff58cf086c0b9174cb05c282ce50b92.js" type="text/javascript"></script>
+  </body>
+</html>
+
