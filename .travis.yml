@@ -1,15 +1,16 @@
 language: ruby
 rvm:
-  - 2.4.2
+  - 2.5.3
 addons:
   apt:
     packages:
     - libcurl4-openssl-dev # https://github.com/typhoeus/typhoeus/issues/568
 before_script:
-  - npm install -g bower
+  - npm install -g bower autotrack
   - bower install
+  - autotrack -o src/_assets/vendor/ga/out.js -p outboundLinkTracker
 script:
-  - bundle exec jekyll build
+  - bundle exec jekyll build --config _config.yml,_config.production.yml --trace
   - bundle exec htmlproofer ./www
 after_success: |
   if [ -n "$GITHUB_API" ]; then

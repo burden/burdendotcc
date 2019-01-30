@@ -2,8 +2,7 @@
 layout: post
 title: Preparing for a real hullabaloo
 date: 2018-09-24 01:18:04 -0700
-edited:
-  - 2019-01-16 14:23:05 -0700
+last_modified_at: 2019-01-16 14:23:05 -0700
 categories: ["updates"]
 tags: ["walkthrough", "jekyll"]
 ---
