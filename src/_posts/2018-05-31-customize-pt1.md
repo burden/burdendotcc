@@ -2,8 +2,7 @@
 layout: post
 title: "Getting settled in (part 1)"
 date: 2018-05-31 14:50:28 -0700
-updated:
-  - 2019-01-23 04:21:52 -0700
+last_modified_at: 2019-01-23 04:21:52 -0700
 categories: ["updates"]
 tags: ["walkthrough", "jekyll"]
 ---

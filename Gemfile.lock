@@ -68,6 +68,8 @@ GEM
       jekyll (~> 3.1)
     jekyll-sass-converter (1.5.2)
       sass (~> 3.4)
+    jekyll-sitemap (1.2.0)
+      jekyll (~> 3.3)
     jekyll-watch (2.1.2)
       listen (~> 3.0)
     kramdown (1.17.0)
@@ -123,13 +125,14 @@ DEPENDENCIES
   jekyll-feed
   jekyll-paginate
   jekyll-redirect-from
+  jekyll-sitemap
   kramdown
   rake
   tzinfo-data
   uglifier
 
 RUBY VERSION
-   ruby 2.6.0p0
+   ruby 2.5.3p105
 
 BUNDLED WITH
-   1.17.2
+   1.17.3

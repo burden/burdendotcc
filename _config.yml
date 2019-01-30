@@ -14,7 +14,7 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 title: burden.cc
-description: Infinite possibilities...
+description: I've been a contributing netizen since 1998, when it was common to use a self appointed handle. Paying homage to the lessons of duality, &quot;burden&quot; always seemed appropriate as a reminder to stay humble.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 keybase_username: burden
@@ -67,6 +67,7 @@ plugins:
   - jekyll-paginate
   - jekyll-redirect-from
   - jekyll-feed
+  - jekyll-sitemap
 
 paginate: 4
 paginate_path: /blog/:num/
