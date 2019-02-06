@@ -18,11 +18,25 @@ description: I've been a contributing netizen since 1998, when it was common to 
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 keybase_username: burden
-twitter_username: cheapexcitement
-github_username:  burden
-github_repo: burden/burdendotcc
+github:
+  username: burden
+  repo: burdendotcc
 email-key: PDjVWvBdECAURGxYo96mqHJ73T5M1Qt4pw0ZNrhOLsflnicFazgeSIyX8Kubk2
 email-encoded: K1@CEzmD8.uu
+
+# seo-tag settings
+logo: burdencc-logo.png # will be shown in json+ld/publisher@Organization
+author: 
+  twitter: cheapexcitement # author's twitter handle
+  name: burden
+twitter:
+  username: cheapexcitement # site's twitter handle
+  image: /assets/social-twitter-card.jpg # for src/_layouts/default.html
+social:
+  links:
+    - https://twitter.com/cheapexcitement
+    - https://github.com/burden
+    - https://keybase.io/burden
 
 # Build settings
 source: src
@@ -68,10 +82,19 @@ plugins:
   - jekyll-redirect-from
   - jekyll-feed
   - jekyll-sitemap
+  - jekyll-seo-tag
 
 paginate: 4
 paginate_path: /blog/:num/
 permalink: /blog/:categories/:title/
 
+defaults:
+  -
+    scope:
+      path: "" # an empty string here means all files in the project
+    values:
+      image: 
+        path: assets/social-open-graph.jpg
+      
 include:
   - CNAME
