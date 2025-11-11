@@ -1,0 +1,10 @@
+[build]
+  command = """
+    yarn install
+    autotrack -o src/_assets/vendor/ga/out.js -p outboundLinkTracker
+    bundle exec jekyll build --config _config.yml,_config.verbose.yml  --trace
+  """
+  publish = "./www"
+
+[build.environment]
+  JEKYLL_ENV = "STAGING"
