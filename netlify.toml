@@ -1,6 +1,6 @@
 [build]
   command = """
-    yarn install
+    npm install -g autotrack
     autotrack -o src/_assets/vendor/ga/out.js -p outboundLinkTracker
     bundle exec jekyll build --config _config.yml,_config.verbose.yml  --trace
   """
