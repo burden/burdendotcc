@@ -1,4 +1,18 @@
 # burden.cc
 
-[![Build Status](https://travis-ci.org/burden/burdendotcc.svg?branch=master)](https://travis-ci.org/burden/burdendotcc)
+Requires
+
+- node
+- yarn
+- ruby 2.5.2
+
+Uses
+
+- Jekyll
+- Bulma 0.7.2
+
+# Getting Started
+
+Download dependencies  
+`yarn install`
 

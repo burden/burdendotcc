@@ -1,14 +1,2 @@
-# share page on local network
 host: 0.0.0.0 
 port: 4000
-ga_tracking: UA-133462408-2
-assets:
-  compression: false
-  gzip: false
-  defaults:
-    js: { integrity: false } # true on JEKYLL_ENV=production
-    css: { integrity: false } # true on JEKYLL_ENV=production
-    img: { integrity: false } # true on JEKYLL_ENV=production
-  compress:
-    css: false
-    js: false
