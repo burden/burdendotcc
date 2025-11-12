@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - wip-deploy
+      - master
 
 jobs:
   build:
@@ -34,7 +34,7 @@ jobs:
           autotrack -o src/_assets/vendor/ga/out.js -p outboundLinkTracker
 
       - name: Build Jekyll
-        run: bundle exec jekyll build --config _config.yml,_config.verbose.yml --trace
+        run: bundle exec jekyll build --config _config.yml,_config.production.yml --trace
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
