@@ -23,7 +23,9 @@ jobs:
           node-version: '18'
 
       - name: Install dependencies
-        run: yarn install
+        run: |
+          bundle install
+          yarn install
 
       - name: Setup outbound link tracking
         run: |
