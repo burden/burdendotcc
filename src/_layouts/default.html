@@ -5,6 +5,10 @@ layout: compress
 <html lang="en">
   <head>
     {% if site.ga_tracking %}{% include _analytics.html %}{% endif %}
+    {% if jekyll.environment == "production" %}
+    <script defer data-domain="burden.cc" src="https://indigo.mikeg.cc/js/script.file-downloads.hash.outbound-links.js"></script>
+    <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
+    {% endif %}
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
