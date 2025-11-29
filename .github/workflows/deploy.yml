@@ -29,12 +29,6 @@ jobs:
           bundle install
           yarn install
 
-      - name: Setup outbound link tracking
-        run: |
-          npm install -g autotrack
-          mkdir -p src/_assets/vendor/ga
-          autotrack -o src/_assets/vendor/ga/out.js -p outboundLinkTracker
-
       - name: Build Jekyll
         run: bundle exec jekyll build --config _config.yml,_config.production.yml --trace
 
